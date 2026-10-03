@@ -1,17 +1,11 @@
 ---
-// Provisório: monstera desenhada à mão até chegar o arquivo oficial da logo.
 interface Props {
   class?: string;
+  variant?: 'full' | 'leaf' | 'leaf-cream';
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', variant = 'full' } = Astro.props;
+const src = { full: '/logo.png', leaf: '/leaf.png', 'leaf-cream': '/leaf-cream.png' }[variant];
+const size = variant === 'full' ? { width: 512, height: 512 } : { width: 409, height: 422 };
 ---
 
-<svg viewBox="0 0 64 64" class={className} role="img" aria-label="Maedicaleb">
-  <circle cx="32" cy="32" r="31" fill="#dfeae1" stroke="#2c5a4b" stroke-width="1.2"></circle>
-  <g fill="#2c5a4b">
-    <path
-      d="M33 14c-9 0-17 7-17 16 0 6 3 11 8 14l2-6-5-2 6-1 1-4-6-3 7 0 2-5-4-4 6 2 2-5 1 6 4-3-2 6 6-1-5 4 6 2-7 1 1 5 4 3-6 0-1 5c6-3 10-9 10-15 0-8-8-14-18-14z"
-    ></path>
-    <path d="M30 44l-3 8" stroke="#2c5a4b" stroke-width="2" stroke-linecap="round"></path>
-  </g>
-</svg>
+<img src={src} alt={variant === 'full' ? 'Maedicaleb, ateliê infantil' : ''} {...size} class={className} decoding="async" />

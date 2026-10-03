@@ -100,7 +100,7 @@ const waIcon =
   <header data-nav class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,transform] duration-500">
     <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-8">
       <a href="#topo" class="flex items-center gap-3" aria-label="Maedicaleb, início">
-        <Logo class="h-11 w-11" />
+        <Logo class="h-12 w-12 drop-shadow-sm" />
         <span class="leading-tight">
           <span class="block font-display text-lg font-medium tracking-tight">Maedicaleb</span>
           <span class="block text-[0.65rem] uppercase tracking-[0.25em] text-ink-soft">Ateliê infantil</span>
@@ -182,12 +182,12 @@ const waIcon =
           <div data-depth="0.4" class="absolute right-[2%] top-[0%] h-28 w-28 sm:h-32 sm:w-32">
             <svg viewBox="0 0 120 120" class="h-full w-full" data-spin aria-hidden="true">
               <defs><path id="circ" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"></path></defs>
-              <circle cx="60" cy="60" r="58" fill="#2c5a4b"></circle>
+              <circle cx="60" cy="60" r="58" fill="#1c423f"></circle>
               <text fill="#f7f2e9" font-size="10.5" letter-spacing="3.2" font-family="Manrope Variable, sans-serif" font-weight="600">
                 <textPath href="#circ">100% ALGODÃO · DO RN AO ADULTO ·</textPath>
               </text>
             </svg>
-            <span class="absolute inset-0 grid place-items-center font-script text-3xl text-cream">m</span>
+            <Logo variant="leaf-cream" class="absolute left-1/2 top-1/2 w-[34%] -translate-x-1/2 -translate-y-1/2" />
           </div>
         </div>
       </div>
@@ -401,6 +401,7 @@ const waIcon =
     <section class="px-4 pb-6 sm:px-8">
       <div class="relative isolate mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-leaf px-6 py-24 text-center text-cream sm:py-32">
         <div class="fabric fabric-stars absolute inset-0 -z-10 opacity-[0.07]"></div>
+        <Logo variant="leaf-cream" class="pointer-events-none absolute -bottom-24 -right-16 -z-10 w-[26rem] max-w-[70vw] rotate-[-18deg] opacity-[0.08]" />
         <p data-reveal class="font-script text-4xl text-gold sm:text-5xl">E aí, vamos vestir</p>
         <h2 data-reveal class="mx-auto mt-2 max-w-4xl font-display text-[clamp(2.6rem,7vw,6rem)] font-light leading-[0.98] tracking-[-0.03em]">
           a família inteira?
@@ -416,7 +417,7 @@ const waIcon =
 
   <footer class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 py-12 text-sm text-ink-soft sm:flex-row sm:px-8">
     <div class="flex items-center gap-3">
-      <Logo class="h-9 w-9" />
+      <Logo class="h-12 w-12" />
       <span>Maedicaleb · Ateliê infantil · {site.city}</span>
     </div>
     <div class="flex items-center gap-6">

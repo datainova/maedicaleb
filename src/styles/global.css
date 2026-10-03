@@ -8,9 +8,9 @@
   --color-paper: #efe6d6;
   --color-ink: #1d2a24;
   --color-ink-soft: #4a5a52;
-  --color-leaf: #2c5a4b;
-  --color-leaf-deep: #173a30;
-  --color-mint: #dfeae1;
+  --color-leaf: #1c423f;
+  --color-leaf-deep: #102b28;
+  --color-mint: #e3ede0;
   --color-gold: #b8935a;
   --color-berry: #a8423a;
   --color-sky: #9fbedd;
@@ -104,8 +104,8 @@ html.lenis body {
 .fabric-tartan {
   background-color: #f6efe2;
   background-image:
-    repeating-linear-gradient(90deg, transparent 0 22px, rgb(139 38 38 / 0.55) 22px 34px, transparent 34px 40px, rgb(44 90 75 / 0.55) 40px 44px, transparent 44px 64px),
-    repeating-linear-gradient(0deg, transparent 0 22px, rgb(139 38 38 / 0.5) 22px 34px, transparent 34px 40px, rgb(44 90 75 / 0.5) 40px 44px, transparent 44px 64px);
+    repeating-linear-gradient(90deg, transparent 0 22px, rgb(139 38 38 / 0.55) 22px 34px, transparent 34px 40px, rgb(28 66 63 / 0.55) 40px 44px, transparent 44px 64px),
+    repeating-linear-gradient(0deg, transparent 0 22px, rgb(139 38 38 / 0.5) 22px 34px, transparent 34px 40px, rgb(28 66 63 / 0.5) 40px 44px, transparent 44px 64px);
 }
 .fabric-floral {
   background-color: #fdf3f1;
@@ -120,8 +120,8 @@ html.lenis body {
 .fabric-mint {
   background-color: #dfeae1;
   background-image:
-    linear-gradient(90deg, rgb(44 90 75 / 0.14) 1px, transparent 1px),
-    linear-gradient(rgb(44 90 75 / 0.14) 1px, transparent 1px);
+    linear-gradient(90deg, rgb(28 66 63 / 0.14) 1px, transparent 1px),
+    linear-gradient(rgb(28 66 63 / 0.14) 1px, transparent 1px);
   background-size: 18px 18px;
 }
 
@@ -153,7 +153,7 @@ html.lenis body {
 .btn-primary {
   background: var(--color-leaf);
   color: var(--color-cream);
-  box-shadow: 0 10px 30px -12px rgb(23 58 48 / 0.6);
+  box-shadow: 0 10px 30px -12px rgb(16 43 40 / 0.6);
 }
 .btn-primary:hover {
   background: var(--color-leaf-deep);
