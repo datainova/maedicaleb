@@ -4,7 +4,11 @@ import Logo from '../components/Logo.astro';
 import Garment from '../components/Garment.astro';
 import Catalog from '../components/Catalog.astro';
 import { lote } from '../data/lote';
+import { Picture } from 'astro:assets';
 import { site, wa } from '../config';
+import fotoAbraco from '../assets/jeniffer-caleb-abraco.jpg';
+import fotoSorriso from '../assets/jeniffer-caleb-sorriso.jpg';
+import fotoRosto from '../assets/jeniffer-rosto.jpg';
 
 const marquee = [
   '100% algodão',
@@ -141,7 +145,10 @@ const waIcon =
               Falar no WhatsApp
             </a>
           </div>
-          <p data-hero-in class="mt-4 text-sm text-ink-soft">Peças prontas para envio. Você finaliza direto com a mamãe que costura.</p>
+          <p data-hero-in class="mt-5 flex items-center gap-3 text-sm text-ink-soft">
+            <Picture src={fotoRosto} alt="Jeniffer, criadora da Maedicaleb" widths={[96, 192]} sizes="48px" formats={['avif', 'webp']} class="h-12 w-12 shrink-0 rounded-full object-cover object-[50%_70%] ring-2 ring-cream shadow-md" />
+            <span>Peças prontas para envio. Você finaliza direto<br class="hidden sm:block" /> com a Jeniffer, a mamãe que costura.</span>
+          </p>
           <div data-hero-in class="mt-8 flex items-center gap-6 text-sm text-ink-soft">
             <span class="flex items-center gap-2"><span class="whitespace-nowrap font-display text-2xl text-ink">4,5 mil</span> seguidores no Instagram</span>
             <span class="h-8 w-px bg-ink/15"></span>
@@ -206,20 +213,48 @@ const waIcon =
     <!-- ============ HISTÓRIA ============ -->
     <section class="relative overflow-hidden py-28 sm:py-40" id="historia">
       <svg class="pointer-events-none absolute inset-x-0 top-0 h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
-        <path data-thread d="M-20 120 C 300 40, 420 380, 720 300 S 1200 80, 1460 260" fill="none" stroke="#b8935a" stroke-width="2" stroke-dasharray="10 9" stroke-linecap="round"></path>
+        <path data-thread d="M-20 70 C 280 10, 520 150, 780 70 S 1220 20, 1460 110" fill="none" stroke="#b8935a" stroke-width="2" stroke-dasharray="10 9" stroke-linecap="round"></path>
       </svg>
-      <div class="relative mx-auto max-w-5xl px-4 sm:px-8">
-        <p data-reveal class="mb-8 text-xs uppercase tracking-[0.3em] text-ink-soft">Por trás do nome</p>
-        <h2 data-reveal class="font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
-          Maedicaleb quer dizer <span class="font-script text-[1.35em] text-leaf">mãe do Caleb.</span>
-        </h2>
-        <p data-scrub-words class="mt-12 font-display text-[clamp(1.4rem,2.8vw,2.3rem)] leading-[1.35] tracking-tight">
-          Tudo começou com um filho, uma máquina de costura e uma família que vive de tecido há anos. Hoje cada pijama sai do nosso ateliê com o mesmo cuidado que a gente teria com o Caleb: costura firme, algodão macio e aquele acabamento que dura muitas noites de sono e muitas fotos de família.
-        </p>
-        <p data-reveal class="mt-12 flex items-center gap-4 text-ink-soft">
-          <span class="h-px w-12 bg-gold"></span>
-          <span><span class="font-script text-3xl text-ink">Jeniffer</span>, a mamãe por trás de cada costura</span>
-        </p>
+      <div class="relative mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-8 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
+        <!-- Fotos: Jeniffer e Caleb -->
+        <div class="relative mx-auto w-full max-w-md pb-16 pr-10 sm:pr-16 lg:max-w-none">
+          <div data-clip-reveal class="relative overflow-hidden rounded-b-[2rem] rounded-t-[999px] shadow-[0_40px_80px_-40px_rgb(29_42_36/0.6)]">
+            <Picture
+              src={fotoAbraco}
+              alt="Jeniffer abraçando o filho Caleb, os dois sorrindo"
+              widths={[480, 800, 1200]}
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              formats={['avif', 'webp']}
+              data-img-parallax
+              class="aspect-[4/5] w-full scale-[1.15] object-cover object-top"
+            />
+          </div>
+          <div data-depth-scroll="-0.25" class="absolute bottom-0 right-0 w-[48%] rotate-[4deg] rounded-2xl bg-cream p-2.5 pb-10 shadow-[0_30px_60px_-25px_rgb(29_42_36/0.55)]">
+            <Picture
+              src={fotoSorriso}
+              alt="Caleb sorrindo no colo da mãe"
+              widths={[320, 640]}
+              sizes="(min-width: 1024px) 20vw, 45vw"
+              formats={['avif', 'webp']}
+              class="aspect-square w-full rounded-xl object-cover object-[50%_30%]"
+            />
+            <span class="absolute inset-x-0 bottom-2 text-center font-script text-2xl text-ink">Jeniffer & Caleb</span>
+          </div>
+        </div>
+
+        <div>
+          <p data-reveal class="mb-8 text-xs uppercase tracking-[0.3em] text-ink-soft">Por trás do nome</p>
+          <h2 data-reveal class="font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-light leading-[1.05] tracking-tight">
+            Maedicaleb quer dizer <span class="font-script text-[1.35em] text-leaf">mãe do Caleb.</span>
+          </h2>
+          <p data-scrub-words class="mt-10 font-display text-[clamp(1.3rem,2.2vw,1.9rem)] leading-[1.4] tracking-tight">
+            Tudo começou com um filho, uma máquina de costura e uma família que vive de tecido há anos. Hoje cada pijama sai do nosso ateliê com o mesmo cuidado que a gente tem com o Caleb: costura firme, algodão macio e aquele acabamento que dura muitas noites de sono e muitas fotos de família.
+          </p>
+          <p data-reveal class="mt-10 flex items-center gap-4 text-ink-soft">
+            <span class="h-px w-12 bg-gold"></span>
+            <span><span class="font-script text-3xl text-ink">Jeniffer</span>, a mamãe por trás de cada costura</span>
+          </p>
+        </div>
       </div>
     </section>
 

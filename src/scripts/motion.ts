@@ -178,6 +178,20 @@ if (reduced) {
     });
   });
 
+  /* ---------- Fotos: cortina abrindo + parallax interno ---------- */
+  $$('[data-clip-reveal]').forEach((el) => {
+    gsap.fromTo(el, { clipPath: 'inset(100% 0% 0% 0% round 2rem)' }, { clipPath: 'inset(0% 0% 0% 0% round 0rem)', duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 80%', once: true } });
+  });
+  $$('[data-img-parallax]').forEach((el) => {
+    const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+    if (!img) return;
+    gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: el.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  $$('[data-depth-scroll]').forEach((el) => {
+    const d = parseFloat(el.dataset.depthScroll || '0');
+    gsap.fromTo(el, { yPercent: -d * 60 }, { yPercent: d * 60, ease: 'none', scrollTrigger: { trigger: el.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
   /* ---------- Parallax suave (Natal) ---------- */
   $$('[data-parallax]').forEach((el) => {
     const speed = parseFloat(el.dataset.parallax || '0');
