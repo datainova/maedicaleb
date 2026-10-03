@@ -18,7 +18,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
     ))}
   </div>
   <p data-empty hidden class="rounded-[2rem] bg-paper/70 px-8 py-16 text-center text-lg text-ink-soft">
-    Não temos peças dessa faixa no lote atual. Entre na lista do próximo lote logo abaixo 💚
+    Nenhuma peça desta faixa no lote atual. Entre na lista de espera logo abaixo.
   </p>
   <div data-grid class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
     {
@@ -112,8 +112,8 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
     <ul data-bag-list class="flex-1 space-y-4 overflow-y-auto px-6 py-6"></ul>
     <div class="border-t border-ink/10 px-6 py-6">
       <div data-bag-total-row class="mb-4 flex justify-between font-semibold"><span>Subtotal</span><span data-bag-total></span></div>
-      <a data-bag-send href="#" target="_blank" rel="noopener" class="btn btn-primary w-full justify-center">Finalizar pelo WhatsApp</a>
-      <p class="mt-3 text-center text-xs text-ink-soft">A gente confirma a disponibilidade, o frete e a forma de pagamento.</p>
+      <a data-bag-send href="#" target="_blank" rel="noopener" class="btn btn-primary w-full justify-center">Enviar pedido pelo WhatsApp</a>
+      <p class="mt-3 text-center text-xs text-ink-soft">A Jeniffer confirma as peças, o frete e o pagamento com você.</p>
     </div>
   </aside>
 </div>
@@ -269,7 +269,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
           chosen = btn.dataset.size!;
           sizes.forEach((b) => b.setAttribute('aria-checked', String(b === btn)));
           const left = stockOf(id, chosen);
-          stock.textContent = left <= poucas ? `Restam só ${left} ${left === 1 ? 'peça' : 'peças'} nesse tamanho` : 'Disponível para envio';
+          stock.textContent = left > poucas ? 'Pronto para envio' : left === 1 ? 'Última peça neste tamanho' : `Últimas ${left} peças neste tamanho`;
           stock.classList.toggle('text-berry', left <= poucas);
           add.disabled = false;
           add.textContent = 'Adicionar à sacola';
@@ -286,7 +286,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
         openBtn.classList.remove('bump');
         void openBtn.offsetWidth;
         openBtn.classList.add('bump');
-        setTimeout(() => (add.textContent = 'Adicionar mais um'), 1400);
+        setTimeout(() => (add.textContent = 'Adicionar outra'), 1400);
       });
     });
 

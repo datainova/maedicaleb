@@ -24,26 +24,26 @@ const marquee = [
 const steps = [
   {
     n: '01',
-    title: 'Escolha no lote',
-    text: 'Cada lote traz estampas novas em quantidade limitada. Veja o que está disponível e escolha a que tem a cara da sua família.',
+    title: 'Escolha a estampa',
+    text: 'Estampas novas a cada lote, sempre em quantidade limitada. Escolha a que tem a cara da sua família.',
     fabric: 'gingham',
   },
   {
     n: '02',
-    title: 'Separe na sacola',
-    text: 'Escolha o tamanho e quantas peças quiser. Dá para levar uma só ou a família inteira combinando.',
+    title: 'Monte a sacola',
+    text: 'Um tamanho para cada pessoa: de uma única peça à família inteira combinando.',
     fabric: 'stars',
   },
   {
     n: '03',
-    title: 'Finalize no WhatsApp',
-    text: 'Sua lista chega pronta. A gente confirma as peças, passa o frete e a forma de pagamento. De mãe para mãe.',
+    title: 'Confirme pelo WhatsApp',
+    text: 'Seu pedido chega pronto para a Jeniffer, que confirma as peças, o frete e o pagamento com você.',
     fabric: 'mint',
   },
   {
     n: '04',
-    title: 'Enviamos para você',
-    text: 'As peças já estão prontas, então é só embalar com carinho e despachar para qualquer lugar do Brasil.',
+    title: 'Receba em casa',
+    text: 'As peças já estão prontas: são embaladas com cuidado e enviadas para todo o Brasil.',
     fabric: 'tartan',
   },
 ];
@@ -52,7 +52,7 @@ const perks = [
   { title: '100% algodão', text: 'Respirável e macio, pensado para a pele sensível do bebê e para noites sem calor.', icon: 'cotton' },
   { title: 'Feito por uma mãe', text: 'Quem corta e costura também coloca um filho para dormir. Cada detalhe passa por esse olhar.', icon: 'needle' },
   { title: 'Lotes exclusivos', text: 'Cada estampa é produzida em quantidade limitada. Poucas famílias vão ter igual à sua.', icon: 'family' },
-  { title: 'Pronto para presentear', text: 'Chega embalado com carinho. Perfeito para avós, dindas e chás de bebê.', icon: 'gift' },
+  { title: 'Pronto para presentear', text: 'Embalagem pensada para presentear avós, dindas e chás de bebê.', icon: 'gift' },
 ];
 
 // TODO: substituir pelos depoimentos reais (destaque "Clientes!" no Instagram)
@@ -66,15 +66,15 @@ const testimonials = [
 const faq = [
   {
     q: 'O tamanho que eu preciso esgotou. E agora?',
-    a: 'Chama a gente no WhatsApp e pede para entrar na lista do próximo lote. Assim você fica sabendo antes de todo mundo quando as novas peças ficarem prontas.',
+    a: 'Peça para entrar na lista de espera pelo WhatsApp. Você conhece o próximo lote em primeira mão.',
   },
   {
     q: 'Como sei qual tamanho escolher?',
-    a: 'Na dúvida, manda a idade, a altura ou as medidas no WhatsApp antes de fechar que a gente te ajuda a escolher o tamanho certo.',
+    a: 'Envie a idade, a altura ou as medidas pelo WhatsApp antes de fechar o pedido. A Jeniffer indica o tamanho ideal.',
   },
   {
     q: 'As peças já estão prontas?',
-    a: 'Sim! As peças do lote são produzidas antes da venda. Depois da confirmação do pagamento, é só embalar e enviar.',
+    a: 'Sim. Cada lote é produzido antes da venda, então seu pedido é embalado e enviado logo após a confirmação do pagamento.',
   },
   {
     q: 'O tecido é bom para pele de bebê?',
@@ -82,7 +82,7 @@ const faq = [
   },
   {
     q: 'Vocês enviam para a minha cidade?',
-    a: 'Enviamos para todo o Brasil. O valor do frete é calculado pelo seu CEP na hora de finalizar.',
+    a: 'Sim, enviamos para todo o Brasil. O frete é calculado pelo seu CEP ao confirmar o pedido.',
   },
 ];
 
@@ -135,7 +135,7 @@ const waIcon =
             a família inteira
           </p>
           <p data-hero-in class="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
-            Pijamas de algodão macio, costurados pela mamãe em lotes pequenos. Do recém-nascido ao adulto, com a família inteira combinando.
+            Algodão macio, acabamento de ateliê e estampas produzidas em lotes pequenos. Do recém-nascido ao adulto, a família inteira combinando.
           </p>
           <div data-hero-in class="mt-9 flex flex-wrap items-center gap-3">
             <a href="#lote" class="btn btn-primary" data-magnetic>
@@ -147,10 +147,13 @@ const waIcon =
               Falar no WhatsApp
             </a>
           </div>
-          <p data-hero-in class="mt-5 flex items-center gap-3 text-sm text-ink-soft">
-            <Picture src={fotoRosto} alt="Jeniffer, criadora da Maedicaleb" widths={[96, 192]} sizes="48px" formats={['avif', 'webp']} class="h-12 w-12 shrink-0 rounded-full object-cover object-center ring-2 ring-cream shadow-md" />
-            <span>Peças prontas para envio. Você finaliza direto<br class="hidden sm:block" /> com a Jeniffer, a mamãe que costura.</span>
-          </p>
+          <figure data-hero-in class="mt-7 flex max-w-md items-center gap-4">
+            <Picture src={fotoRosto} alt="Jeniffer, fundadora da Maedicaleb" widths={[112, 224]} sizes="56px" formats={['avif', 'webp']} pictureAttributes={{ class: 'shrink-0' }} class="h-14 w-14 rounded-full object-cover object-center ring-2 ring-cream shadow-md" />
+            <div>
+              <blockquote class="font-display text-[1.05rem] italic leading-snug text-ink">“Cada peça passa pelas minhas mãos antes de chegar à sua casa.”</blockquote>
+              <figcaption class="mt-1.5 text-[0.7rem] uppercase tracking-[0.22em] text-ink-soft">Jeniffer · fundadora</figcaption>
+            </div>
+          </figure>
           <div data-hero-in class="mt-8 flex items-center gap-6 text-sm text-ink-soft">
             <span class="flex items-center gap-2"><span class="whitespace-nowrap font-display text-2xl text-ink">4,5 mil</span> seguidores no Instagram</span>
             <span class="h-8 w-px bg-ink/15"></span>
@@ -250,11 +253,11 @@ const waIcon =
             Maedicaleb quer dizer <span class="font-script text-[1.35em] text-leaf">mãe do Caleb.</span>
           </h2>
           <p data-scrub-words class="mt-10 font-display text-[clamp(1.3rem,2.2vw,1.9rem)] leading-[1.4] tracking-tight">
-            Em 2020, numa família que vive de costura, nasceram as primeiras roupinhas de recém-nascido para o Caleb. Ele cresceu, e a Maedicaleb cresceu junto. Hoje ele tem 7 anos e cada pijama sai do nosso ateliê com o mesmo cuidado que a gente tem com ele: costura firme, algodão macio e acabamento que dura muitas noites de sono.
+            Em 2020, numa família que vive de costura, nasceram as primeiras roupinhas de recém-nascido para o Caleb. Ele cresceu, e a Maedicaleb cresceu junto. Hoje ele tem 7 anos e cada pijama sai do nosso ateliê com o mesmo cuidado que dedicamos a ele: costura firme, algodão macio e acabamento que dura muitas noites de sono.
           </p>
           <p data-reveal class="mt-10 flex items-center gap-4 text-ink-soft">
             <span class="h-px w-12 bg-gold"></span>
-            <span><span class="font-script text-3xl text-ink">Jeniffer</span>, a mamãe por trás de cada costura</span>
+            <span><span class="font-script text-3xl text-ink">Jeniffer</span>, fundadora e mãe do Caleb</span>
           </p>
         </div>
       </div>
@@ -305,16 +308,16 @@ const waIcon =
               Quando acaba, <span class="font-script text-[1.3em] text-leaf">só no próximo lote</span>
             </h2>
           </div>
-          <p data-reveal class="max-w-sm text-ink-soft">Cada estampa é costurada em poucas unidades e poucos tamanhos. Escolha, separe na sacola e finalize pelo WhatsApp.</p>
+          <p data-reveal class="max-w-sm text-ink-soft">Cada estampa nasce em poucas unidades e poucos tamanhos. Por isso, cada lote é único.</p>
         </div>
         <Catalog />
 
         <div data-reveal class="mt-20 flex flex-col items-start justify-between gap-6 rounded-[2rem] border border-dashed border-ink/25 p-8 sm:flex-row sm:items-center sm:p-10">
           <div>
-            <p class="font-display text-2xl sm:text-3xl">Não achou o seu tamanho?</p>
-            <p class="mt-2 max-w-lg text-ink-soft">Entre na lista do próximo lote e fique sabendo antes de todo mundo quando as novas estampas ficarem prontas.</p>
+            <p class="font-display text-2xl sm:text-3xl">Seu tamanho esgotou?</p>
+            <p class="mt-2 max-w-lg text-ink-soft">Entre na lista de espera e conheça o próximo lote em primeira mão.</p>
           </div>
-          <a href={wa('Oi! Quero entrar na lista do próximo lote 💚 Procuro o tamanho: ')} target="_blank" rel="noopener" class="btn btn-ghost shrink-0" data-magnetic>Quero ser avisada</a>
+          <a href={wa('Oi! Quero entrar na lista do próximo lote 💚 Procuro o tamanho: ')} target="_blank" rel="noopener" class="btn btn-ghost shrink-0" data-magnetic>Entrar na lista de espera</a>
         </div>
       </div>
     </section>
@@ -338,7 +341,7 @@ const waIcon =
             </article>
           ))}
           <a href="#lote" data-reveal class="group flex shrink-0 flex-col justify-between rounded-[2rem] bg-leaf p-8 text-cream lg:h-[26rem] lg:w-[22rem] lg:p-10">
-            <span class="font-script text-5xl leading-none">Vamos começar?</span>
+            <span class="font-script text-5xl leading-none">Escolha a sua estampa</span>
             <span class="mt-10 flex items-center justify-between text-lg font-semibold">
               Ver o lote disponível
               <span class="grid h-14 w-14 place-items-center rounded-full bg-cream text-leaf transition-transform duration-500 group-hover:rotate-[-45deg]">→</span>
@@ -385,7 +388,7 @@ const waIcon =
             A foto de Natal <span class="font-script text-[1.25em] text-gold">mais bonita</span> começa no pijama.
           </h2>
           <p data-reveal class="mt-6 max-w-md text-lg leading-relaxed text-cream/75">
-            Pais, filhos e até o bebê na mesma estampa. O lote de Natal é produzido em quantidade limitada e, quando os tamanhos acabam, só no ano que vem.
+            Pais, filhos e o bebê na mesma estampa. O lote de Natal é limitado e, quando os tamanhos acabam, só no próximo ano.
           </p>
           <div data-reveal class="mt-10 flex gap-3" data-countdown>
             {['dias', 'horas', 'min', 'seg'].map((u) => (
@@ -432,9 +435,9 @@ const waIcon =
         <div>
           <p data-reveal class="mb-4 text-xs uppercase tracking-[0.3em] text-ink-soft">Dúvidas</p>
           <h2 data-reveal class="font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
-            Perguntas <span class="font-script text-[1.3em] text-leaf">frequentes</span>
+            Antes de <span class="font-script text-[1.3em] text-leaf">você escolher</span>
           </h2>
-          <p data-reveal class="mt-6 max-w-sm text-ink-soft">Não achou a sua? Manda no WhatsApp que a gente responde rapidinho.</p>
+          <p data-reveal class="mt-6 max-w-sm text-ink-soft">Ficou alguma dúvida? A Jeniffer responde pessoalmente pelo WhatsApp.</p>
         </div>
         <div class="divide-y divide-ink/10 border-y border-ink/10">
           {faq.map((f) => (
@@ -460,7 +463,7 @@ const waIcon =
           <h2 data-reveal class="mt-2 font-display text-[clamp(2.6rem,6vw,5.4rem)] font-light leading-[0.98] tracking-[-0.03em]">
             a família inteira?
           </h2>
-          <p data-reveal class="mx-auto mt-6 max-w-md text-lg text-cream/75 lg:mx-0">Escolha no lote disponível antes que os tamanhos acabem. A Jeniffer te atende pessoalmente no WhatsApp.</p>
+          <p data-reveal class="mx-auto mt-6 max-w-md text-lg text-cream/75 lg:mx-0">Escolha a estampa enquanto os tamanhos ainda estão disponíveis. A Jeniffer cuida do resto, pessoalmente.</p>
           <a data-reveal href="#lote" class="btn mt-10 bg-cream text-leaf hover:bg-gold hover:text-leaf-deep" data-magnetic>
             Ver o lote disponível
           </a>
