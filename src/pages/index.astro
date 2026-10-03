@@ -55,10 +55,12 @@ const perks = [
   { title: 'Pronto para presentear', text: 'Embalagem pensada para presentear avós, dindas e chás de bebê.', icon: 'gift' },
 ];
 
-// Depoimentos REAIS de clientes (prints do destaque "Clientes!" no Instagram/WhatsApp).
-// A seção só aparece quando houver pelo menos um. Ex.:
-// { name: 'Ana', city: 'Curitiba, PR', text: 'O tecido é muito macio...' },
-const testimonials: { name: string; city: string; text: string }[] = [];
+// TODO: substituir pelos depoimentos reais (destaque "Clientes!" no Instagram)
+const testimonials = [
+  { name: 'Nome da cliente', city: 'Cidade, UF', text: '[Cole aqui um depoimento real de cliente, tirado dos prints do destaque "Clientes!".]' },
+  { name: 'Nome da cliente', city: 'Cidade, UF', text: '[Depoimento real sobre a maciez do tecido ou o acabamento das peças.]' },
+  { name: 'Nome da cliente', city: 'Cidade, UF', text: '[Depoimento real sobre a família combinando, a foto de Natal ou o presente.]' },
+];
 
 // TODO: confirmar respostas com a Maedicaleb
 const faq = [
@@ -362,7 +364,6 @@ const waIcon =
     </section>
 
     <!-- ============ DEPOIMENTOS ============ -->
-    {testimonials.length > 0 && (
     <section class="overflow-hidden py-28 sm:py-36">
       <div class="mx-auto max-w-7xl px-4 sm:px-8">
         <p data-reveal class="mb-4 text-xs uppercase tracking-[0.3em] text-ink-soft">Quem já vestiu</p>
@@ -382,7 +383,6 @@ const waIcon =
         </div>
       </div>
     </section>
-    )}
 
     <!-- ============ NATAL ============ -->
     <section id="natal" class="relative isolate overflow-hidden bg-leaf-deep py-28 text-cream sm:py-36">
