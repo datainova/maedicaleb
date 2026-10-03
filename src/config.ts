@@ -5,8 +5,7 @@ export const site = {
   city: 'Curitiba, PR',
   instagram: 'https://instagram.com/maedicaleb',
   instagramHandle: '@maedicaleb',
-  // TODO: número real do WhatsApp, só dígitos com DDI + DDD (ex.: 5541999999999)
-  whatsapp: '5541900000000',
+  whatsapp: '5541998993722',
 };
 
 export function wa(message = 'Oi! Vim pelo site e quero montar meu pijama 💚') {
