@@ -9,7 +9,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
 ---
 
 <div data-catalog data-wa={site.whatsapp} data-lote={lote.nome} data-items={JSON.stringify(data)} data-poucas={lote.poucas}>
-  <div class="mb-10 flex flex-wrap gap-2" role="group" aria-label="Filtrar por idade">
+  <div class="mb-10 grid w-full grid-cols-4 gap-1 rounded-full bg-paper p-1 sm:inline-grid sm:w-auto" role="group" aria-label="Filtrar por idade">
     <button type="button" data-filter="" aria-pressed="true" class="filter-btn">Todos <span>{lote.pecas.length}</span></button>
     {faixas.map(({ f, n }) => (
       <button type="button" data-filter={f} aria-pressed="false" class="filter-btn">
@@ -121,24 +121,33 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
 <style>
   .filter-btn {
     border-radius: 999px;
-    border: 1px solid rgb(29 42 36 / 0.18);
-    padding: 0.55rem 1.1rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    transition: all 0.3s var(--ease-soft);
+    white-space: nowrap;
+    color: var(--color-ink-soft);
+    transition: all 0.35s var(--ease-soft);
+  }
+  @media (min-width: 640px) {
+    .filter-btn {
+      padding: 0.6rem 1.4rem;
+      font-size: 0.9rem;
+    }
   }
   .filter-btn span {
-    margin-left: 0.25rem;
-    opacity: 0.5;
+    margin-left: 0.2rem;
+    font-size: 0.75em;
+    vertical-align: super;
+    opacity: 0.55;
     font-weight: 500;
   }
   .filter-btn:hover {
-    border-color: var(--color-leaf);
+    color: var(--color-ink);
   }
   .filter-btn[aria-pressed='true'] {
     background: var(--color-leaf);
-    border-color: var(--color-leaf);
     color: var(--color-cream);
+    box-shadow: 0 6px 16px -8px rgb(16 43 40 / 0.6);
   }
   .size-btn[aria-checked='true'] {
     background: var(--color-leaf);

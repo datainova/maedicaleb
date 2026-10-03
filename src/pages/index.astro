@@ -110,7 +110,7 @@ const waIcon =
         <a href="#natal" class="link-underline">Natal</a>
         <a href="#duvidas" class="link-underline">Dúvidas</a>
       </div>
-      <a href={wa()} target="_blank" rel="noopener" class="btn btn-primary !p-0 grid h-11 w-11 place-items-center text-sm sm:!inline-flex sm:h-auto sm:w-auto sm:!px-4 sm:!py-2.5" aria-label="Pedir pelo WhatsApp" data-magnetic>
+      <a href={wa()} target="_blank" rel="noopener" data-nav-wa class="btn btn-primary !p-0 grid h-11 w-11 place-items-center text-sm sm:!inline-flex sm:h-auto sm:w-auto sm:!px-4 sm:!py-2.5" aria-label="Pedir pelo WhatsApp" data-magnetic>
         <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current sm:h-4 sm:w-4" aria-hidden="true"><path d={waIcon}></path></svg>
         <span class="hidden sm:inline">Pedir agora</span>
       </a>
@@ -561,6 +561,15 @@ const waIcon =
   }
   [data-nav].is-hidden {
     transform: translateY(-110%);
+  }
+  @media (max-width: 639px) {
+    [data-nav].float-on [data-nav-wa] {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  [data-nav-wa] {
+    transition: opacity 0.4s;
   }
   [data-float-wa].is-visible {
     translate: 0 0;

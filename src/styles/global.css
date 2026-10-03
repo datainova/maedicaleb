@@ -185,6 +185,14 @@ html.lenis body {
   }
 }
 
+/* Pinyon Script tem traços que saem da caixa da letra (ex.: o "p"); dá folga para não cortar */
+.font-script {
+  padding-inline: 0.3em 0.04em;
+  margin-left: -0.16em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 /* SplitText com máscara de linha: folga para acentos e cedilhas não serem cortados */
 [data-split] > * {
   padding-block: 0.08em 0.14em;

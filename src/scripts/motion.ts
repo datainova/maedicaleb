@@ -45,7 +45,9 @@ const onScroll = () => {
   const y = window.scrollY;
   nav?.classList.toggle('is-scrolled', y > 20);
   nav?.classList.toggle('is-hidden', y > 400 && y > lastY);
-  floatWa?.classList.toggle('is-visible', y > window.innerHeight * 0.8);
+  const showFloat = y > window.innerHeight * 0.8;
+  floatWa?.classList.toggle('is-visible', showFloat);
+  nav?.classList.toggle('float-on', showFloat);
   lastY = y;
 };
 window.addEventListener('scroll', onScroll, { passive: true });
@@ -133,7 +135,7 @@ if (reduced) {
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 88%',
     once: true,
-    onEnter: (els) => gsap.fromTo(els, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08, overwrite: true }),
+    onEnter: (els) => gsap.fromTo(els, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08, overwrite: true, clearProps: 'transform' }),
   });
 
   /* ---------- História: palavras acendem conforme o scroll ---------- */
