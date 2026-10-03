@@ -1,7 +1,7 @@
 ---
 // Silhueta de peça de pijama preenchida por uma estampa, com pesponto na borda.
 interface Props {
-  kind: 'top' | 'pants';
+  kind: 'top' | 'top-long' | 'pants' | 'shorts';
   fabric: string;
   class?: string;
   [key: string]: unknown;
@@ -10,7 +10,9 @@ const { kind, fabric, class: className = '', ...rest } = Astro.props;
 
 const paths = {
   top: 'M70 20 Q100 42 130 20 L172 38 L198 90 L162 104 L152 84 L152 192 L48 192 L48 84 L38 104 L2 90 L28 38 Z',
+  'top-long': 'M70 20 Q100 42 130 20 L170 36 L198 162 L172 170 L152 86 L152 192 L48 192 L48 86 L28 170 L2 162 L30 36 Z',
   pants: 'M38 8 L162 8 L176 192 L116 192 L100 74 L84 192 L24 192 Z',
+  shorts: 'M36 46 L164 46 L180 152 L114 152 L100 108 L86 152 L20 152 Z',
 };
 const d = paths[kind];
 const mask = `url("data:image/svg+xml,${encodeURIComponent(
@@ -22,7 +24,7 @@ const mask = `url("data:image/svg+xml,${encodeURIComponent(
   <div class={`fabric fabric-${fabric} garment-body`} style={`mask-image:${mask};-webkit-mask-image:${mask}`}>
     <svg viewBox="0 0 200 200" class="absolute inset-0 h-full w-full" aria-hidden="true">
       <path d={d} fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="5 5" opacity="0.9"></path>
-      {kind === 'top' && <path d="M100 30 L100 192" stroke="rgb(0 0 0 / .08)" stroke-width="1.2"></path>}
+      {kind.startsWith('top') && <path d="M100 30 L100 192" stroke="rgb(0 0 0 / .08)" stroke-width="1.2"></path>}
     </svg>
   </div>
 </div>
