@@ -1,10 +1,12 @@
 ---
+import { asset } from '../config';
+
 interface Props {
   class?: string;
   variant?: 'full' | 'leaf' | 'leaf-cream';
 }
 const { class: className = '', variant = 'full' } = Astro.props;
-const src = { full: '/logo.png', leaf: '/leaf.png', 'leaf-cream': '/leaf-cream.png' }[variant];
+const src = asset({ full: '/logo.png', leaf: '/leaf.png', 'leaf-cream': '/leaf-cream.png' }[variant]);
 const size = variant === 'full' ? { width: 512, height: 512 } : { width: 409, height: 422 };
 ---
 

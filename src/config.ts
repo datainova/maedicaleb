@@ -12,3 +12,8 @@ export const site = {
 export function wa(message = 'Oi! Vim pelo site e quero montar meu pijama 💚') {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 }
+
+/** Caminho de arquivos da pasta public respeitando o base path do deploy. */
+export function asset(path: string) {
+  return `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path}`;
+}
