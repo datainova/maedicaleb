@@ -30,6 +30,13 @@ if (!reduced) {
   );
 }
 
+// trava o scroll da página quando uma gaveta/modal está aberta
+window.addEventListener('scroll-lock', (e) => {
+  const lock = (e as CustomEvent<boolean>).detail;
+  if (lenis) lock ? lenis.stop() : lenis.start();
+  else document.documentElement.style.overflow = lock ? 'hidden' : '';
+});
+
 /* ---------- Nav: fundo ao rolar, some ao descer, volta ao subir ---------- */
 const nav = $('[data-nav]');
 const floatWa = $('[data-float-wa]');

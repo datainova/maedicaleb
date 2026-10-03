@@ -1,0 +1,262 @@
+---
+// Vitrine do lote atual + sacolinha. O pedido é finalizado no WhatsApp com a lista pronta.
+import { lote } from '../data/lote';
+import { site, asset } from '../config';
+
+const brl = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, preco: p.preco ?? null, tamanhos: p.tamanhos }));
+---
+
+<div data-catalog data-wa={site.whatsapp} data-lote={lote.nome} data-items={JSON.stringify(data)} data-poucas={lote.poucas}>
+  <div class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      lote.pecas.map((p) => {
+        const total = p.tamanhos.reduce((a, t) => a + t.estoque, 0);
+        const esgotado = total === 0;
+        // selo só quando o lote da estampa está mesmo no fim, para a urgência continuar crível
+        const ultimas = !esgotado && total <= lote.poucas * 2;
+        return (
+          <article data-reveal data-product={p.id} class="group">
+            <div data-tilt class="[perspective:900px]">
+              <div data-tilt-inner class="relative overflow-hidden rounded-[1.75rem] transition-shadow duration-500 group-hover:shadow-[0_40px_70px_-35px_rgb(29_42_36/0.55)]">
+                {p.foto ? (
+                  <img src={asset(p.foto)} alt={`Pijama ${p.nome}`} loading="lazy" class="aspect-[4/5] w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.05]" />
+                ) : (
+                  <div class={`fabric stitched fabric-${p.fabric} aspect-[4/5] rounded-[1.75rem] transition-transform duration-[1.2s] ease-[var(--ease-soft)] group-hover:scale-[1.05]`} />
+                )}
+                <span class="absolute right-4 top-4 rounded-full bg-cream/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] backdrop-blur">{p.modelo}</span>
+                {ultimas && (
+                  <span class="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-berry px-3 py-1 text-xs font-semibold text-cream">
+                    <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-cream" /> Últimas peças
+                  </span>
+                )}
+                {esgotado && (
+                  <div class="absolute inset-0 grid place-items-center bg-cream/60 backdrop-blur-[2px]">
+                    <span class="rounded-full bg-ink px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-cream">Esgotado</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div class="mt-5 flex items-baseline justify-between gap-4">
+              <h3 class="font-display text-2xl">{p.nome}</h3>
+              <span class="shrink-0 font-semibold text-leaf">{p.preco ? brl(p.preco) : 'Consulte'}</span>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2" role="radiogroup" aria-label={`Tamanhos de ${p.nome}`}>
+              {p.tamanhos.map((t) => (
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked="false"
+                  data-size={t.t}
+                  disabled={t.estoque === 0}
+                  class="size-btn relative min-w-12 rounded-full border border-ink/20 px-3.5 py-2 text-sm font-semibold transition-all duration-300 hover:border-leaf disabled:cursor-not-allowed disabled:border-ink/10 disabled:text-ink/30 disabled:line-through"
+                >
+                  {t.t}
+                  {t.estoque > 0 && t.estoque <= lote.poucas && <span class="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-cream bg-berry" />}
+                </button>
+              ))}
+            </div>
+            <p data-stock class="mt-2 h-5 text-xs text-ink-soft"></p>
+
+            <button type="button" data-add disabled class="btn btn-primary mt-3 w-full justify-center disabled:cursor-not-allowed disabled:opacity-50">
+              {esgotado ? 'Esgotado neste lote' : 'Escolha o tamanho'}
+            </button>
+          </article>
+        );
+      })
+    }
+  </div>
+</div>
+
+<!-- Botão da sacola -->
+<button
+  type="button"
+  data-bag-open
+  class="fixed bottom-5 left-4 right-24 z-50 flex translate-y-28 items-center justify-between gap-3 rounded-full bg-ink py-3 pl-5 pr-3 text-cream shadow-2xl transition-[translate] duration-500 sm:left-1/2 sm:right-auto sm:w-80"
+>
+  <span class="flex items-center gap-3">
+    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Zm4 0V6a3 3 0 0 1 6 0v2"></path></svg>
+    <span class="text-sm font-semibold">Sacola · <span data-bag-count>0</span> <span data-bag-label>peças</span></span>
+  </span>
+  <span class="rounded-full bg-cream px-4 py-2 text-sm font-semibold text-ink">Finalizar</span>
+</button>
+
+<!-- Gaveta da sacola -->
+<div data-bag class="pointer-events-none fixed inset-0 z-[70]" aria-hidden="true">
+  <div data-bag-close class="absolute inset-0 bg-ink/40 opacity-0 transition-opacity duration-500"></div>
+  <aside
+    data-lenis-prevent
+    role="dialog"
+    aria-modal="true"
+    aria-label="Sacola"
+    class="bag-panel absolute bottom-0 right-0 top-0 flex w-full max-w-md translate-x-full flex-col bg-cream shadow-2xl transition-[translate] duration-500 ease-[var(--ease-soft)]"
+  >
+    <div class="flex items-center justify-between border-b border-ink/10 px-6 py-5">
+      <p class="font-display text-2xl">Sua sacola</p>
+      <button type="button" data-bag-close class="grid h-10 w-10 place-items-center rounded-full text-2xl hover:bg-paper" aria-label="Fechar">×</button>
+    </div>
+    <ul data-bag-list class="flex-1 space-y-4 overflow-y-auto px-6 py-6"></ul>
+    <div class="border-t border-ink/10 px-6 py-6">
+      <div data-bag-total-row class="mb-4 flex justify-between font-semibold"><span>Subtotal</span><span data-bag-total></span></div>
+      <a data-bag-send href="#" target="_blank" rel="noopener" class="btn btn-primary w-full justify-center">Finalizar pelo WhatsApp</a>
+      <p class="mt-3 text-center text-xs text-ink-soft">A gente confirma a disponibilidade, o frete e a forma de pagamento.</p>
+    </div>
+  </aside>
+</div>
+
+<style>
+  .size-btn[aria-checked='true'] {
+    background: var(--color-leaf);
+    border-color: var(--color-leaf);
+    color: var(--color-cream);
+  }
+  [data-bag].is-open {
+    pointer-events: auto;
+  }
+  [data-bag].is-open [data-bag-close].absolute {
+    opacity: 1;
+  }
+  [data-bag].is-open .bag-panel {
+    translate: 0 0;
+  }
+  [data-bag-open].has-items {
+    translate: 0 0;
+  }
+  @media (min-width: 640px) {
+    [data-bag-open] {
+      translate: -50% 7rem;
+    }
+    [data-bag-open].has-items {
+      translate: -50% 0;
+    }
+  }
+  .bump {
+    animation: bump 0.5s var(--ease-soft);
+  }
+  @keyframes bump {
+    40% {
+      scale: 1.08;
+    }
+  }
+</style>
+
+<script>
+  type Item = { id: string; nome: string; modelo: string; preco: number | null; tamanhos: { t: string; estoque: number }[] };
+  type Line = { id: string; t: string; q: number };
+
+  const root = document.querySelector<HTMLElement>('[data-catalog]');
+  if (root) {
+    const items: Item[] = JSON.parse(root.dataset.items!);
+    const poucas = Number(root.dataset.poucas);
+    const byId = Object.fromEntries(items.map((i) => [i.id, i]));
+    const stockOf = (id: string, t: string) => byId[id]?.tamanhos.find((s) => s.t === t)?.estoque ?? 0;
+    const brl = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const KEY = 'maedicaleb-sacola';
+
+    let bag: Line[] = [];
+    try {
+      bag = (JSON.parse(localStorage.getItem(KEY) || '[]') as Line[]).filter((l) => stockOf(l.id, l.t) > 0);
+    } catch {}
+    const save = () => {
+      try {
+        localStorage.setItem(KEY, JSON.stringify(bag));
+      } catch {}
+    };
+
+    const openBtn = document.querySelector<HTMLElement>('[data-bag-open]')!;
+    const drawer = document.querySelector<HTMLElement>('[data-bag]')!;
+    const list = drawer.querySelector<HTMLElement>('[data-bag-list]')!;
+
+    const render = () => {
+      const count = bag.reduce((a, l) => a + l.q, 0);
+      openBtn.classList.toggle('has-items', count > 0);
+      openBtn.querySelector('[data-bag-count]')!.textContent = String(count);
+      openBtn.querySelector('[data-bag-label]')!.textContent = count === 1 ? 'peça' : 'peças';
+
+      list.innerHTML = bag.length
+        ? bag
+            .map((l, i) => {
+              const it = byId[l.id];
+              return `<li class="flex items-center gap-4 rounded-2xl bg-paper/60 p-4">
+                <div class="flex-1"><p class="font-display text-lg leading-tight">${it.nome}</p>
+                <p class="text-sm text-ink-soft">${it.modelo} · tam. ${l.t}${it.preco ? ` · ${brl(it.preco)}` : ''}</p></div>
+                <div class="flex items-center gap-1 rounded-full border border-ink/15 bg-cream">
+                  <button type="button" data-dec="${i}" class="grid h-8 w-8 place-items-center" aria-label="Menos">−</button>
+                  <span class="w-5 text-center text-sm font-semibold tabular-nums">${l.q}</span>
+                  <button type="button" data-inc="${i}" class="grid h-8 w-8 place-items-center disabled:opacity-30" aria-label="Mais" ${l.q >= stockOf(l.id, l.t) ? 'disabled' : ''}>+</button>
+                </div></li>`;
+            })
+            .join('')
+        : '<li class="py-10 text-center text-ink-soft">Sua sacola está vazia.</li>';
+
+      const allPriced = bag.length > 0 && bag.every((l) => byId[l.id].preco);
+      drawer.querySelector<HTMLElement>('[data-bag-total-row]')!.hidden = !allPriced;
+      if (allPriced) drawer.querySelector('[data-bag-total]')!.textContent = brl(bag.reduce((a, l) => a + l.q * (byId[l.id].preco ?? 0), 0));
+
+      const msg = [
+        `Oi! Quero reservar estas peças do ${root.dataset.lote} 💚`,
+        '',
+        ...bag.map((l) => `• ${l.q}x ${byId[l.id].nome} (${byId[l.id].modelo}) · tam. ${l.t}`),
+        '',
+        'Pode me passar o total com frete? Meu CEP é: ',
+      ].join('\n');
+      drawer.querySelector<HTMLAnchorElement>('[data-bag-send]')!.href = `https://wa.me/${root.dataset.wa}?text=${encodeURIComponent(msg)}`;
+      save();
+    };
+
+    list.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest('button');
+      if (!b) return;
+      const i = Number(b.dataset.inc ?? b.dataset.dec);
+      if (b.dataset.inc !== undefined) bag[i].q = Math.min(bag[i].q + 1, stockOf(bag[i].id, bag[i].t));
+      else if (--bag[i].q <= 0) bag.splice(i, 1);
+      render();
+    });
+
+    const setOpen = (open: boolean) => {
+      drawer.classList.toggle('is-open', open);
+      drawer.setAttribute('aria-hidden', String(!open));
+      window.dispatchEvent(new CustomEvent('scroll-lock', { detail: open }));
+    };
+    openBtn.addEventListener('click', () => setOpen(true));
+    drawer.querySelectorAll('[data-bag-close]').forEach((el) => el.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+
+    // Cards: escolher tamanho e adicionar
+    root.querySelectorAll<HTMLElement>('[data-product]').forEach((card) => {
+      const id = card.dataset.product!;
+      const add = card.querySelector<HTMLButtonElement>('[data-add]')!;
+      const stock = card.querySelector<HTMLElement>('[data-stock]')!;
+      const sizes = [...card.querySelectorAll<HTMLButtonElement>('[data-size]')];
+      let chosen = '';
+      sizes.forEach((btn) =>
+        btn.addEventListener('click', () => {
+          chosen = btn.dataset.size!;
+          sizes.forEach((b) => b.setAttribute('aria-checked', String(b === btn)));
+          const left = stockOf(id, chosen);
+          stock.textContent = left <= poucas ? `Restam só ${left} ${left === 1 ? 'peça' : 'peças'} nesse tamanho` : 'Disponível para envio';
+          stock.classList.toggle('text-berry', left <= poucas);
+          add.disabled = false;
+          add.textContent = 'Adicionar à sacola';
+        }),
+      );
+      add.addEventListener('click', () => {
+        if (!chosen) return;
+        const line = bag.find((l) => l.id === id && l.t === chosen);
+        const max = stockOf(id, chosen);
+        if (line) line.q = Math.min(line.q + 1, max);
+        else bag.push({ id, t: chosen, q: 1 });
+        render();
+        add.textContent = 'Adicionado ✓';
+        openBtn.classList.remove('bump');
+        void openBtn.offsetWidth;
+        openBtn.classList.add('bump');
+        setTimeout(() => (add.textContent = 'Adicionar mais um'), 1400);
+      });
+    });
+
+    render();
+  }
+</script>
