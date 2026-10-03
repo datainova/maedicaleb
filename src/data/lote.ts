@@ -11,6 +11,7 @@ export interface Peca {
   id: string;
   nome: string;
   modelo: string; // ex.: "Longo", "Curto"
+  faixa: 'Bebê' | 'Criança' | 'Adulto'; // usado no filtro da vitrine
   fabric: string; // estampa desenhada (até chegarem as fotos)
   foto?: string; // caminho em /public, ex.: "/lote/xadrez.jpg"
   preco?: number; // em reais; sem preço mostra "consulte"
@@ -26,6 +27,7 @@ export const lote = {
       id: 'xadrez-natalino',
       nome: 'Xadrez Natalino',
       modelo: 'Longo',
+      faixa: 'Criança',
       fabric: 'gingham',
       tamanhos: [
         { t: '2', estoque: 6 },
@@ -37,6 +39,7 @@ export const lote = {
       id: 'tartan-da-ceia',
       nome: 'Tartan da Ceia',
       modelo: 'Longo',
+      faixa: 'Adulto',
       fabric: 'tartan',
       tamanhos: [
         { t: 'M', estoque: 4 },
@@ -48,6 +51,7 @@ export const lote = {
       id: 'noite-estrelada',
       nome: 'Noite Estrelada',
       modelo: 'Longo',
+      faixa: 'Bebê',
       fabric: 'stars',
       tamanhos: [
         { t: 'RN', estoque: 3 },
@@ -59,6 +63,7 @@ export const lote = {
       id: 'listrinha-ceu',
       nome: 'Listrinha Céu',
       modelo: 'Curto',
+      faixa: 'Criança',
       fabric: 'stripes',
       tamanhos: [
         { t: '1', estoque: 4 },
@@ -70,6 +75,7 @@ export const lote = {
       id: 'jardim-de-algodao',
       nome: 'Jardim de Algodão',
       modelo: 'Curto',
+      faixa: 'Criança',
       fabric: 'floral',
       tamanhos: [
         { t: '4', estoque: 5 },
@@ -81,6 +87,7 @@ export const lote = {
       id: 'poa-rosado',
       nome: 'Poá Rosado',
       modelo: 'Longo',
+      faixa: 'Adulto',
       fabric: 'dots',
       tamanhos: [
         { t: 'P', estoque: 0 },

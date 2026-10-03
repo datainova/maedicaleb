@@ -4,11 +4,23 @@ import { lote } from '../data/lote';
 import { site, asset } from '../config';
 
 const brl = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const faixas = (['Bebê', 'Criança', 'Adulto'] as const).map((f) => ({ f, n: lote.pecas.filter((p) => p.faixa === f).length }));
 const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, preco: p.preco ?? null, tamanhos: p.tamanhos }));
 ---
 
 <div data-catalog data-wa={site.whatsapp} data-lote={lote.nome} data-items={JSON.stringify(data)} data-poucas={lote.poucas}>
-  <div class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="mb-10 flex flex-wrap gap-2" role="group" aria-label="Filtrar por idade">
+    <button type="button" data-filter="" aria-pressed="true" class="filter-btn">Todos <span>{lote.pecas.length}</span></button>
+    {faixas.map(({ f, n }) => (
+      <button type="button" data-filter={f} aria-pressed="false" class="filter-btn">
+        {f === 'Bebê' ? 'Bebês' : f === 'Criança' ? 'Crianças' : 'Adultos'} <span>{n}</span>
+      </button>
+    ))}
+  </div>
+  <p data-empty hidden class="rounded-[2rem] bg-paper/70 px-8 py-16 text-center text-lg text-ink-soft">
+    Não temos peças dessa faixa no lote atual. Entre na lista do próximo lote logo abaixo 💚
+  </p>
+  <div data-grid class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
     {
       lote.pecas.map((p) => {
         const total = p.tamanhos.reduce((a, t) => a + t.estoque, 0);
@@ -16,7 +28,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
         // selo só quando o lote da estampa está mesmo no fim, para a urgência continuar crível
         const ultimas = !esgotado && total <= lote.poucas * 2;
         return (
-          <article data-reveal data-product={p.id} class="group">
+          <article data-reveal data-product={p.id} data-faixa={p.faixa} class="group">
             <div data-tilt class="[perspective:900px]">
               <div data-tilt-inner class="relative overflow-hidden rounded-[1.75rem] transition-shadow duration-500 group-hover:shadow-[0_40px_70px_-35px_rgb(29_42_36/0.55)]">
                 {p.foto ? (
@@ -107,6 +119,27 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
 </div>
 
 <style>
+  .filter-btn {
+    border-radius: 999px;
+    border: 1px solid rgb(29 42 36 / 0.18);
+    padding: 0.55rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s var(--ease-soft);
+  }
+  .filter-btn span {
+    margin-left: 0.25rem;
+    opacity: 0.5;
+    font-weight: 500;
+  }
+  .filter-btn:hover {
+    border-color: var(--color-leaf);
+  }
+  .filter-btn[aria-pressed='true'] {
+    background: var(--color-leaf);
+    border-color: var(--color-leaf);
+    color: var(--color-cream);
+  }
   .size-btn[aria-checked='true'] {
     background: var(--color-leaf);
     border-color: var(--color-leaf);
@@ -256,6 +289,29 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
         setTimeout(() => (add.textContent = 'Adicionar mais um'), 1400);
       });
     });
+
+    // Filtro por faixa de idade
+    const filters = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-product]')];
+    const empty = root.querySelector<HTMLElement>('[data-empty]')!;
+    filters.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter;
+        filters.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        let shown = 0;
+        cards.forEach((c) => {
+          const on = !f || c.dataset.faixa === f;
+          c.hidden = !on;
+          if (on) {
+            shown++;
+            c.style.opacity = '1';
+            c.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.22,1,.36,1)' });
+          }
+        });
+        empty.hidden = shown > 0;
+        window.dispatchEvent(new Event('resize'));
+      }),
+    );
 
     render();
   }

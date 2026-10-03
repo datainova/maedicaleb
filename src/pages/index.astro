@@ -211,7 +211,7 @@ const waIcon =
     </section>
 
     <!-- ============ HISTÓRIA ============ -->
-    <section class="relative overflow-hidden py-28 sm:py-40" id="historia">
+    <section class="relative overflow-hidden pb-20 pt-28 sm:pb-28 sm:pt-40" id="historia">
       <svg class="pointer-events-none absolute inset-x-0 top-0 h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
         <path data-thread d="M-20 70 C 280 10, 520 150, 780 70 S 1220 20, 1460 110" fill="none" stroke="#b8935a" stroke-width="2" stroke-dasharray="10 9" stroke-linecap="round"></path>
       </svg>
@@ -248,13 +248,46 @@ const waIcon =
             Maedicaleb quer dizer <span class="font-script text-[1.35em] text-leaf">mãe do Caleb.</span>
           </h2>
           <p data-scrub-words class="mt-10 font-display text-[clamp(1.3rem,2.2vw,1.9rem)] leading-[1.4] tracking-tight">
-            Tudo começou com um filho, uma máquina de costura e uma família que vive de tecido há anos. Hoje cada pijama sai do nosso ateliê com o mesmo cuidado que a gente tem com o Caleb: costura firme, algodão macio e aquele acabamento que dura muitas noites de sono e muitas fotos de família.
+            Em 2020, numa família que vive de costura, nasceram as primeiras roupinhas de recém-nascido para o Caleb. Ele cresceu, e a Maedicaleb cresceu junto. Hoje ele tem 7 anos e cada pijama sai do nosso ateliê com o mesmo cuidado que a gente tem com ele: costura firme, algodão macio e acabamento que dura muitas noites de sono.
           </p>
           <p data-reveal class="mt-10 flex items-center gap-4 text-ink-soft">
             <span class="h-px w-12 bg-gold"></span>
             <span><span class="font-script text-3xl text-ink">Jeniffer</span>, a mamãe por trás de cada costura</span>
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ CRESCEU JUNTO ============ -->
+    <section class="relative pb-24 sm:pb-32" aria-labelledby="cresceu">
+      <div class="mx-auto max-w-7xl px-4 sm:px-8">
+        <h2 id="cresceu" data-reveal class="mb-14 text-center font-display text-[clamp(1.8rem,3.6vw,2.8rem)] font-light leading-tight tracking-tight">
+          A Maedicaleb <span class="font-script text-[1.3em] text-leaf">cresceu junto</span> com o Caleb
+        </h2>
+        <div data-grow class="relative mx-auto flex max-w-5xl items-end justify-between gap-2 sm:gap-6">
+          {[
+            { w: 'w-[13%]', fabric: 'dots', size: 'RN', when: '2020' },
+            { w: 'w-[17%]', fabric: 'stars', size: '2 anos', when: '' },
+            { w: 'w-[21%]', fabric: 'stripes', size: '4 anos', when: '' },
+            { w: 'w-[25%]', fabric: 'gingham', size: '7 anos', when: 'hoje' },
+          ].map((g) => (
+            <div class={`flex flex-col items-center ${g.w}`} data-grow-item>
+              <Garment kind="top" fabric={g.fabric} class="w-full" />
+              <span class="mt-3 font-display text-lg sm:text-2xl">{g.size}</span>
+              <span class="h-5 text-xs uppercase tracking-[0.2em] text-ink-soft">{g.when}</span>
+            </div>
+          ))}
+          <div class="hidden w-[16%] flex-col items-center self-stretch text-center sm:flex" data-grow-item>
+            <div class="grid flex-1 place-items-center">
+              <span class="text-center font-script text-2xl leading-tight text-leaf sm:text-4xl">e a família inteira</span>
+            </div>
+            <span class="mt-3 font-display text-lg sm:text-2xl">RN → adulto</span>
+            <span class="h-5 text-center text-xs uppercase tracking-[0.2em] text-ink-soft">todos os tamanhos</span>
+          </div>
+        </div>
+        <!-- fita métrica -->
+        <div class="tape mx-auto mt-6 h-7 max-w-5xl rounded-sm" aria-hidden="true"></div>
+        <p data-reveal class="mt-6 text-center text-ink-soft sm:hidden"><span class="font-script text-3xl text-leaf">e a família inteira</span><br />do RN ao adulto</p>
       </div>
     </section>
 
@@ -463,6 +496,17 @@ const waIcon =
   }
   .link-underline:hover {
     background-size: 100% 1px;
+  }
+  .tape {
+    background-color: #f2d98d;
+    background-image:
+      repeating-linear-gradient(90deg, rgb(29 42 36 / 0.7) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(90deg, rgb(29 42 36 / 0.85) 0 1.5px, transparent 1.5px 50px);
+    background-size:
+      100% 35%,
+      100% 60%;
+    background-repeat: no-repeat;
+    box-shadow: 0 6px 14px -8px rgb(29 42 36 / 0.4);
   }
   .faq summary::-webkit-details-marker {
     display: none;

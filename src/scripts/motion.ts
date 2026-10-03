@@ -192,6 +192,20 @@ if (reduced) {
     gsap.fromTo(el, { yPercent: -d * 60 }, { yPercent: d * 60, ease: 'none', scrollTrigger: { trigger: el.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true } });
   });
 
+  /* ---------- Peças crescendo (RN -> 7 anos) ---------- */
+  const grow = $('[data-grow]');
+  if (grow)
+    gsap.from($$('[data-grow-item]', grow), {
+      scale: 0.4,
+      opacity: 0,
+      y: 40,
+      transformOrigin: '50% 100%',
+      stagger: 0.18,
+      duration: 1.2,
+      ease: 'back.out(1.6)',
+      scrollTrigger: { trigger: grow, start: 'top 80%', once: true },
+    });
+
   /* ---------- Parallax suave (Natal) ---------- */
   $$('[data-parallax]').forEach((el) => {
     const speed = parseFloat(el.dataset.parallax || '0');
