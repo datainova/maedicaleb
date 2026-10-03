@@ -180,7 +180,7 @@ if (reduced) {
 
   /* ---------- Fotos: cortina abrindo + parallax interno ---------- */
   $$('[data-clip-reveal]').forEach((el) => {
-    gsap.fromTo(el, { clipPath: 'inset(100% 0% 0% 0% round 2rem)' }, { clipPath: 'inset(0% 0% 0% 0% round 0rem)', duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 80%', once: true } });
+    gsap.fromTo(el, { clipPath: 'inset(100% 0% 0% 0% round 2rem)' }, { clipPath: 'inset(0% 0% 0% 0% round 0rem)', duration: 1.6, ease: 'expo.out', clearProps: 'clipPath', scrollTrigger: { trigger: el, start: 'top 80%', once: true } });
   });
   $$('[data-img-parallax]').forEach((el) => {
     const img = el.tagName === 'IMG' ? el : el.querySelector('img');
