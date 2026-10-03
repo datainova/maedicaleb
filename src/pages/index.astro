@@ -1,0 +1,463 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Garment from '../components/Garment.astro';
+import { site, wa } from '../config';
+
+const marquee = [
+  '100% algodão',
+  'Do RN ao adulto',
+  'Feito à mão em Curitiba',
+  'Estampas exclusivas',
+  'Enviamos para todo o Brasil',
+  'A família inteira combinando',
+];
+
+const steps = [
+  {
+    n: '01',
+    title: 'Escolha a estampa',
+    text: 'Clássicas, florais, divertidas ou exclusivas. Se bater a dúvida, a gente te ajuda a escolher a que tem a cara da sua família.',
+    fabric: 'gingham',
+  },
+  {
+    n: '02',
+    title: 'Diga os tamanhos',
+    text: 'Do recém-nascido ao adulto. Pode ser um pijama só ou a família inteira combinando, cada um no seu tamanho.',
+    fabric: 'stars',
+  },
+  {
+    n: '03',
+    title: 'Fale com a gente no WhatsApp',
+    text: 'Você recebe valores e prazo certinhos, sem letra miúda. É uma conversa, não um formulário.',
+    fabric: 'mint',
+  },
+  {
+    n: '04',
+    title: 'A gente costura e envia',
+    text: 'Cada peça é cortada e costurada no nosso ateliê e chega embalada para presente em qualquer lugar do Brasil.',
+    fabric: 'tartan',
+  },
+];
+
+// TODO: trocar pelas estampas reais do catálogo (com fotos dos tecidos)
+const prints = [
+  { name: 'Xadrez Natalino', tag: 'Clássicas', fabric: 'gingham' },
+  { name: 'Noite Estrelada', tag: 'Clássicas', fabric: 'stars' },
+  { name: 'Listrinha Céu', tag: 'Divertidas', fabric: 'stripes' },
+  { name: 'Jardim de Algodão', tag: 'Florais', fabric: 'floral' },
+  { name: 'Tartan da Ceia', tag: 'Exclusivas', fabric: 'tartan' },
+  { name: 'Poá Rosado', tag: 'Divertidas', fabric: 'dots' },
+];
+
+const perks = [
+  { title: '100% algodão', text: 'Toque macio e respirável, gostoso na pele do bebê e na sua.', icon: 'cotton' },
+  { title: 'Feito à mão', text: 'Cortado e costurado em ateliê de família, peça por peça.', icon: 'needle' },
+  { title: 'Do RN ao adulto', text: 'Todos os tamanhos para a família inteira sair na mesma foto.', icon: 'family' },
+  { title: 'Pronto para presentear', text: 'Chega embalado com carinho, do jeito que um presente merece.', icon: 'gift' },
+];
+
+// TODO: substituir pelos depoimentos reais (destaque "Clientes!" no Instagram)
+const testimonials = [
+  { name: 'Nome da cliente', city: 'Cidade, UF', text: '[Cole aqui um depoimento real de cliente, tirado dos prints do destaque "Clientes!".]' },
+  { name: 'Nome da cliente', city: 'Cidade, UF', text: '[Depoimento real sobre a maciez do tecido ou o acabamento das peças.]' },
+  { name: 'Nome da cliente', city: 'Cidade, UF', text: '[Depoimento real sobre a família combinando, a foto de Natal ou o presente.]' },
+];
+
+// TODO: confirmar respostas com a Maedicaleb
+const faq = [
+  {
+    q: 'Qual é o prazo de produção?',
+    a: 'Como cada pijama é feito sob encomenda, o prazo depende da época e da quantidade de peças. A gente informa a data certinha no WhatsApp antes de você fechar o pedido.',
+  },
+  {
+    q: 'Quais tamanhos vocês fazem?',
+    a: 'Do recém-nascido (RN) ao adulto. Dá pra montar o conjunto da família inteira na mesma estampa.',
+  },
+  {
+    q: 'Vocês enviam para a minha cidade?',
+    a: 'Enviamos para todo o Brasil. O valor do frete é calculado pelo seu CEP na hora do pedido.',
+  },
+  {
+    q: 'Posso escolher a estampa e o modelo?',
+    a: 'Pode, e é essa a graça. Você escolhe estampa, modelo (curto ou longo) e os tamanhos de cada pessoa.',
+  },
+  {
+    q: 'Como faço o pedido?',
+    a: 'É só chamar no WhatsApp. A gente te mostra as estampas disponíveis, passa os valores e cuida de tudo daí em diante.',
+  },
+];
+
+const waIcon =
+  'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z';
+---
+
+<Base
+  title="Maedicaleb · Pijamas feitos à mão para a família inteira"
+  description="Pijamas 100% algodão, costurados à mão em Curitiba. Do RN ao adulto, com estampas exclusivas e a família inteira combinando. Enviamos para todo o Brasil."
+>
+  <!-- ============ NAV ============ -->
+  <header data-nav class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,transform] duration-500">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-8">
+      <a href="#topo" class="flex items-center gap-3" aria-label="Maedicaleb, início">
+        <Logo class="h-11 w-11" />
+        <span class="leading-tight">
+          <span class="block font-display text-lg font-medium tracking-tight">Maedicaleb</span>
+          <span class="block text-[0.65rem] uppercase tracking-[0.25em] text-ink-soft">Ateliê infantil</span>
+        </span>
+      </a>
+      <div class="hidden items-center gap-8 text-sm md:flex">
+        <a href="#estampas" class="link-underline">Estampas</a>
+        <a href="#como-funciona" class="link-underline">Como funciona</a>
+        <a href="#natal" class="link-underline">Natal</a>
+        <a href="#duvidas" class="link-underline">Dúvidas</a>
+      </div>
+      <a href={wa()} target="_blank" rel="noopener" class="btn btn-primary !px-4 !py-2.5 text-sm" data-magnetic>
+        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current" aria-hidden="true"><path d={waIcon}></path></svg>
+        <span>Pedir agora</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="topo">
+    <!-- ============ HERO ============ -->
+    <section class="relative isolate overflow-hidden pt-28 sm:pt-32" data-hero>
+      <div class="pointer-events-none absolute -right-40 -top-40 -z-10 h-[38rem] w-[38rem] rounded-full bg-mint blur-3xl opacity-70"></div>
+      <div class="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-[28rem] w-[28rem] rounded-full bg-paper blur-3xl"></div>
+
+      <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pb-24">
+        <div>
+          <p data-hero-in class="mb-6 inline-flex items-center gap-2 rounded-full border border-ink/15 bg-cream/60 px-4 py-1.5 text-xs uppercase tracking-[0.22em] text-ink-soft backdrop-blur">
+            <span class="h-1.5 w-1.5 rounded-full bg-berry"></span> Encomendas de Natal abertas
+          </p>
+          <h1 data-split class="font-display text-[clamp(2.9rem,8vw,6.4rem)] font-light leading-[0.95] tracking-[-0.03em]">
+            Pijamas que abraçam
+          </h1>
+          <p data-hero-in class="-mt-1 font-script text-[clamp(2.6rem,6.5vw,5rem)] leading-none text-leaf">
+            a família inteira
+          </p>
+          <p data-hero-in class="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
+            Peças únicas em algodão macio, costuradas à mão pela mamãe. Do recém-nascido ao adulto, todo mundo combinando do jeito que você imaginou.
+          </p>
+          <div data-hero-in class="mt-9 flex flex-wrap items-center gap-3">
+            <a href={wa()} target="_blank" rel="noopener" class="btn btn-primary" data-magnetic>
+              <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true"><path d={waIcon}></path></svg>
+              Montar meu pijama
+            </a>
+            <a href="#estampas" class="btn btn-ghost" data-magnetic>Ver estampas</a>
+          </div>
+          <div data-hero-in class="mt-10 flex items-center gap-6 text-sm text-ink-soft">
+            <span class="flex items-center gap-2"><span class="whitespace-nowrap font-display text-2xl text-ink">4,5 mil</span> seguidores no Instagram</span>
+            <span class="h-8 w-px bg-ink/15"></span>
+            <span class="whitespace-nowrap">Enviamos para<br />todo o Brasil</span>
+          </div>
+        </div>
+
+        <!-- Composição: a "família" de pijamas, do adulto ao bebê -->
+        <div class="relative mx-auto aspect-square w-full max-w-[34rem]" data-hero-art>
+          <div class="absolute inset-[8%] rounded-full bg-mint/80"></div>
+          <div data-depth="0.6" class="absolute left-[2%] top-[6%] w-[58%]">
+            <Garment kind="top" fabric="gingham" class="w-full rotate-[-8deg]" data-garment />
+          </div>
+          <div data-depth="1" class="absolute right-[0%] top-[16%] w-[44%]">
+            <Garment kind="pants" fabric="tartan" class="w-full rotate-[7deg]" data-garment />
+          </div>
+          <div data-depth="1.4" class="absolute bottom-[4%] left-[18%] w-[40%]">
+            <Garment kind="top" fabric="stars" class="w-full rotate-[5deg]" data-garment />
+          </div>
+          <div data-depth="1.9" class="absolute bottom-[10%] right-[12%] w-[26%]">
+            <Garment kind="top" fabric="dots" class="w-full rotate-[-10deg]" data-garment />
+          </div>
+
+          <!-- Etiqueta kraft pendurada -->
+          <div data-depth="2.2" class="absolute left-[-2%] bottom-[30%] sm:left-[-6%]" data-tag>
+            <div class="relative origin-top rotate-[-12deg] rounded-md bg-[#c9a77a] px-4 pb-3 pt-6 text-[#3b2a17] shadow-xl" style="clip-path:polygon(18% 0,82% 0,100% 16%,100% 100%,0 100%,0 16%)">
+              <span class="absolute left-1/2 top-2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cream/80"></span>
+              <span class="block font-script text-2xl leading-none">feito à mão</span>
+              <span class="block text-[0.6rem] uppercase tracking-[0.25em]">pela mamãe · Curitiba</span>
+            </div>
+          </div>
+
+          <!-- Selo giratório -->
+          <div data-depth="0.4" class="absolute right-[2%] top-[0%] h-28 w-28 sm:h-32 sm:w-32">
+            <svg viewBox="0 0 120 120" class="h-full w-full" data-spin aria-hidden="true">
+              <defs><path id="circ" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"></path></defs>
+              <circle cx="60" cy="60" r="58" fill="#2c5a4b"></circle>
+              <text fill="#f7f2e9" font-size="10.5" letter-spacing="3.2" font-family="Manrope Variable, sans-serif" font-weight="600">
+                <textPath href="#circ">100% ALGODÃO · DO RN AO ADULTO ·</textPath>
+              </text>
+            </svg>
+            <span class="absolute inset-0 grid place-items-center font-script text-3xl text-cream">m</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <section aria-label="Diferenciais" class="relative border-y border-ink/10 bg-leaf py-5 text-cream">
+      <div class="flex overflow-hidden whitespace-nowrap">
+        <div class="marquee-track flex shrink-0 items-center gap-10 pr-10 font-display text-2xl italic sm:text-3xl">
+          {[...marquee, ...marquee].map((m) => (
+            <>
+              <span>{m}</span>
+              <svg viewBox="0 0 20 20" class="h-4 w-4 fill-gold" aria-hidden="true"><path d="M10 0l2.4 7.6L20 10l-7.6 2.4L10 20l-2.4-7.6L0 10l7.6-2.4z"></path></svg>
+            </>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HISTÓRIA ============ -->
+    <section class="relative overflow-hidden py-28 sm:py-40" id="historia">
+      <svg class="pointer-events-none absolute inset-x-0 top-0 h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+        <path data-thread d="M-20 120 C 300 40, 420 380, 720 300 S 1200 80, 1460 260" fill="none" stroke="#b8935a" stroke-width="2" stroke-dasharray="10 9" stroke-linecap="round"></path>
+      </svg>
+      <div class="relative mx-auto max-w-5xl px-4 sm:px-8">
+        <p data-reveal class="mb-8 text-xs uppercase tracking-[0.3em] text-ink-soft">Por trás do nome</p>
+        <h2 data-reveal class="font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
+          Maedicaleb quer dizer <span class="font-script text-[1.35em] text-leaf">mãe do Caleb.</span>
+        </h2>
+        <p data-scrub-words class="mt-12 font-display text-[clamp(1.4rem,2.8vw,2.3rem)] leading-[1.35] tracking-tight">
+          Tudo começou com um filho, uma máquina de costura e uma família que vive de tecido há anos. Hoje cada pijama sai do nosso ateliê com o mesmo cuidado que a gente teria com o Caleb: costura firme, algodão macio e aquele acabamento que dura muitas noites de sono e muitas fotos de família.
+        </p>
+        <p data-reveal class="mt-12 flex items-center gap-4 text-ink-soft">
+          <span class="h-px w-12 bg-gold"></span>
+          <span><span class="font-script text-3xl text-ink">Jeniffer</span>, a mamãe por trás de cada costura</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ COMO FUNCIONA (scroll horizontal) ============ -->
+    <section id="como-funciona" class="relative bg-paper" data-hscroll>
+      <div class="flex min-h-screen flex-col justify-center overflow-hidden py-24 lg:h-screen lg:py-0">
+        <div class="mx-auto mb-12 w-full max-w-7xl px-4 sm:px-8">
+          <p data-reveal class="mb-4 text-xs uppercase tracking-[0.3em] text-ink-soft">Como funciona</p>
+          <h2 data-reveal class="max-w-2xl font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
+            Seu pijama, <span class="font-script text-[1.3em] text-leaf">do seu jeito</span>, em quatro passos.
+          </h2>
+        </div>
+        <div data-htrack class="flex flex-col gap-5 px-4 sm:px-8 lg:w-max lg:flex-row lg:gap-8 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))]">
+          {steps.map((s) => (
+            <article data-reveal class="group relative flex shrink-0 flex-col overflow-hidden rounded-[2rem] bg-cream p-8 shadow-[0_30px_60px_-30px_rgb(29_42_36/0.35)] lg:h-[26rem] lg:w-[26rem] lg:p-10">
+              <div class={`fabric fabric-${s.fabric} absolute -right-10 -top-10 h-40 w-40 rotate-12 rounded-[2rem] opacity-90 transition-transform duration-700 ease-[var(--ease-soft)] group-hover:rotate-[24deg] group-hover:scale-110`}></div>
+              <span class="relative font-display text-7xl font-extralight text-gold">{s.n}</span>
+              <h3 class="relative mt-auto pt-10 font-display text-3xl font-normal tracking-tight">{s.title}</h3>
+              <p class="relative mt-4 leading-relaxed text-ink-soft">{s.text}</p>
+            </article>
+          ))}
+          <a href={wa()} target="_blank" rel="noopener" data-reveal class="group flex shrink-0 flex-col justify-between rounded-[2rem] bg-leaf p-8 text-cream lg:h-[26rem] lg:w-[22rem] lg:p-10">
+            <span class="font-script text-5xl leading-none">Vamos começar?</span>
+            <span class="mt-10 flex items-center justify-between text-lg font-semibold">
+              Chamar no WhatsApp
+              <span class="grid h-14 w-14 place-items-center rounded-full bg-cream text-leaf transition-transform duration-500 group-hover:rotate-[-45deg]">→</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ESTAMPAS ============ -->
+    <section id="estampas" class="py-28 sm:py-36">
+      <div class="mx-auto max-w-7xl px-4 sm:px-8">
+        <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p data-reveal class="mb-4 text-xs uppercase tracking-[0.3em] text-ink-soft">Estampas</p>
+            <h2 data-reveal class="max-w-xl font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
+              Escolha a que tem <span class="font-script text-[1.3em] text-leaf">a cara de vocês</span>
+            </h2>
+          </div>
+          <p data-reveal class="max-w-sm text-ink-soft">Clássicas, florais, divertidas e exclusivas. As estampas mudam a cada coleção, então pergunte pelas novidades.</p>
+        </div>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {prints.map((p) => (
+            <a
+              href={wa(`Oi! Vim pelo site e me apaixonei pela estampa "${p.name}". Quais tamanhos e valores vocês têm?`)}
+              target="_blank"
+              rel="noopener"
+              data-reveal
+              data-tilt
+              class="group relative block [perspective:900px]"
+            >
+              <div data-tilt-inner class="relative overflow-hidden rounded-[1.75rem] transition-shadow duration-500 group-hover:shadow-[0_40px_70px_-35px_rgb(29_42_36/0.55)]">
+                <div class={`fabric stitched fabric-${p.fabric} aspect-[4/5] rounded-[1.75rem] transition-transform duration-[1.2s] ease-[var(--ease-soft)] group-hover:scale-[1.06]`}></div>
+                <span class="absolute left-5 top-5 rounded-full bg-cream/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-ink backdrop-blur">{p.tag}</span>
+                <div class="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl bg-cream/92 px-5 py-4 backdrop-blur">
+                  <span class="font-display text-xl">{p.name}</span>
+                  <span class="flex items-center gap-2 text-sm font-semibold text-leaf">
+                    <span class="max-w-0 overflow-hidden whitespace-nowrap transition-[max-width] duration-500 group-hover:max-w-32">Quero essa</span>
+                    <span class="grid h-9 w-9 place-items-center rounded-full bg-leaf text-cream transition-transform duration-500 group-hover:rotate-[-45deg]">→</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NATAL ============ -->
+    <section id="natal" class="relative isolate overflow-hidden bg-leaf-deep py-28 text-cream sm:py-36">
+      <div class="pointer-events-none absolute inset-0 -z-10" data-twinkles aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -left-24 top-1/2 -z-10 h-[30rem] w-[30rem] -translate-y-1/2 rounded-full bg-gold/15 blur-3xl"></div>
+      <div class="mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-8 lg:grid-cols-2">
+        <div class="relative order-2 mx-auto aspect-square w-full max-w-md lg:order-1">
+          <div data-parallax="-0.15" class="absolute left-0 top-[4%] w-[62%]"><Garment kind="top" fabric="tartan" class="w-full -rotate-6" /></div>
+          <div data-parallax="0.1" class="absolute right-0 top-[22%] w-[48%]"><Garment kind="pants" fabric="gingham" class="w-full rotate-6" /></div>
+          <div data-parallax="0.25" class="absolute bottom-0 left-[22%] w-[38%]"><Garment kind="top" fabric="tartan" class="w-full rotate-3" /></div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <p data-reveal class="mb-4 text-xs uppercase tracking-[0.3em] text-gold">Coleção de Natal</p>
+          <h2 data-reveal class="font-display text-[clamp(2.4rem,5.5vw,4.6rem)] font-light leading-[1.02] tracking-tight">
+            A foto de Natal <span class="font-script text-[1.25em] text-gold">mais bonita</span> começa no pijama.
+          </h2>
+          <p data-reveal class="mt-6 max-w-md text-lg leading-relaxed text-cream/75">
+            Pais, filhos e até o bebê na mesma estampa. Como cada peça é feita à mão, os pedidos de Natal entram na produção por ordem de chegada. Quanto antes, mais tranquilo.
+          </p>
+          <div data-reveal class="mt-10 flex gap-3" data-countdown>
+            {['dias', 'horas', 'min', 'seg'].map((u) => (
+              <div class="w-20 rounded-2xl border border-cream/15 bg-cream/5 px-2 py-4 text-center backdrop-blur sm:w-24">
+                <span class="block font-display text-4xl font-light tabular-nums" data-unit={u}>00</span>
+                <span class="mt-1 block text-[0.65rem] uppercase tracking-[0.25em] text-cream/60">{u}</span>
+              </div>
+            ))}
+          </div>
+          <p data-reveal class="mt-3 text-sm text-cream/50">até o Natal</p>
+          <a data-reveal href={wa('Oi! Quero garantir os pijamas de Natal da minha família 🎄')} target="_blank" rel="noopener" class="btn mt-10 bg-gold text-leaf-deep hover:bg-cream" data-magnetic>
+            Garantir os pijamas de Natal
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DIFERENCIAIS ============ -->
+    <section class="py-28 sm:py-36">
+      <div class="mx-auto max-w-7xl px-4 sm:px-8">
+        <h2 data-reveal class="mx-auto mb-16 max-w-3xl text-center font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
+          Conforto que vira <span class="font-script text-[1.3em] text-leaf">memória</span>
+        </h2>
+        <div class="grid gap-px overflow-hidden rounded-[2rem] bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+          {perks.map((p) => (
+            <div data-reveal class="group bg-cream p-8 transition-colors duration-500 hover:bg-mint lg:p-10">
+              <svg viewBox="0 0 48 48" class="h-12 w-12 text-leaf" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                {p.icon === 'cotton' && <path d="M24 30c-6 0-10-3-10-7s3-6 6-6c0-4 2-7 4-7s4 3 4 7c3 0 6 2 6 6s-4 7-10 7Zm0 0v10m-5 0h10" />}
+                {p.icon === 'needle' && <path d="M10 38 36 12m-2-2 4 4M14 34c-6 4-6 9 0 8s10-10 18-6 6 8 2 8" />}
+                {p.icon === 'family' && <path d="M15 16a4 4 0 1 0 0-.1M33 16a4 4 0 1 0 0-.1M24 26a3 3 0 1 0 0-.1M8 38c0-6 3-11 7-11s7 5 7 11M26 38c0-6 3-11 7-11s7 5 7 11M19 40c0-4 2-7 5-7s5 3 5 7" />}
+                {p.icon === 'gift' && <path d="M9 20h30v6H9zM11 26h26v14H11zM24 20v20M24 20c-3-6-11-7-10-2 1 3 7 2 10 2Zm0 0c3-6 11-7 10-2-1 3-7 2-10 2Z" />}
+              </svg>
+              <h3 class="mt-8 font-display text-2xl">{p.title}</h3>
+              <p class="mt-3 leading-relaxed text-ink-soft">{p.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DEPOIMENTOS ============ -->
+    <section class="overflow-hidden bg-mint py-28 sm:py-36">
+      <div class="mx-auto max-w-7xl px-4 sm:px-8">
+        <p data-reveal class="mb-4 text-xs uppercase tracking-[0.3em] text-ink-soft">Quem já vestiu</p>
+        <h2 data-reveal class="max-w-2xl font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
+          Famílias que <span class="font-script text-[1.3em] text-leaf">dormem abraçadas</span>
+        </h2>
+        <div class="mt-14 grid gap-6 md:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <figure data-reveal class={`rounded-[1.75rem] bg-cream p-8 shadow-[0_30px_60px_-40px_rgb(29_42_36/0.5)] ${i === 1 ? 'md:translate-y-10' : ''}`}>
+              <div class="mb-6 flex gap-1 text-gold" aria-label="5 estrelas">
+                {Array.from({ length: 5 }).map(() => <svg viewBox="0 0 20 20" class="h-4 w-4 fill-current"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z" /></svg>)}
+              </div>
+              <blockquote class="font-display text-xl leading-snug">{t.text}</blockquote>
+              <figcaption class="mt-6 text-sm text-ink-soft"><strong class="font-semibold text-ink">{t.name}</strong> · {t.city}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section id="duvidas" class="py-28 sm:py-36">
+      <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-8 lg:grid-cols-[1fr_1.4fr]">
+        <div>
+          <p data-reveal class="mb-4 text-xs uppercase tracking-[0.3em] text-ink-soft">Dúvidas</p>
+          <h2 data-reveal class="font-display text-[clamp(2.2rem,5vw,4rem)] font-light leading-[1.05] tracking-tight">
+            Perguntas <span class="font-script text-[1.3em] text-leaf">frequentes</span>
+          </h2>
+          <p data-reveal class="mt-6 max-w-sm text-ink-soft">Não achou a sua? Manda no WhatsApp que a gente responde rapidinho.</p>
+        </div>
+        <div class="divide-y divide-ink/10 border-y border-ink/10">
+          {faq.map((f) => (
+            <details data-reveal class="faq group py-6">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-xl sm:text-2xl">
+                {f.q}
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-ink/15 text-xl transition-transform duration-500 group-open:rotate-45">+</span>
+              </summary>
+              <p class="mt-4 max-w-xl leading-relaxed text-ink-soft">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA FINAL ============ -->
+    <section class="px-4 pb-6 sm:px-8">
+      <div class="relative isolate mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-leaf px-6 py-24 text-center text-cream sm:py-32">
+        <div class="fabric fabric-stars absolute inset-0 -z-10 opacity-[0.07]"></div>
+        <p data-reveal class="font-script text-4xl text-gold sm:text-5xl">E aí, vamos vestir</p>
+        <h2 data-reveal class="mx-auto mt-2 max-w-4xl font-display text-[clamp(2.6rem,7vw,6rem)] font-light leading-[0.98] tracking-[-0.03em]">
+          a família inteira?
+        </h2>
+        <p data-reveal class="mx-auto mt-6 max-w-md text-lg text-cream/75">Chama no WhatsApp e monte seu pedido com a gente, sem compromisso.</p>
+        <a data-reveal href={wa()} target="_blank" rel="noopener" class="btn mt-10 bg-cream text-leaf hover:bg-gold hover:text-leaf-deep" data-magnetic>
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true"><path d={waIcon}></path></svg>
+          Montar meu pijama
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 py-12 text-sm text-ink-soft sm:flex-row sm:px-8">
+    <div class="flex items-center gap-3">
+      <Logo class="h-9 w-9" />
+      <span>Maedicaleb · Ateliê infantil · {site.city}</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href={site.instagram} target="_blank" rel="noopener" class="link-underline">{site.instagramHandle}</a>
+      <span>© {new Date().getFullYear()}</span>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante de WhatsApp -->
+  <a
+    href={wa()}
+    target="_blank"
+    rel="noopener"
+    data-float-wa
+    class="fixed bottom-5 right-5 z-50 grid h-16 w-16 translate-y-24 place-items-center rounded-full bg-[#25d366] text-white shadow-[0_15px_35px_-10px_rgb(37_211_102/0.7)] transition-transform duration-500"
+    aria-label="Falar no WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" class="h-8 w-8 fill-current" aria-hidden="true"><path d={waIcon}></path></svg>
+  </a>
+</Base>
+
+<style is:global>
+  .link-underline {
+    background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+    transition: background-size 0.5s var(--ease-soft);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  [data-nav].is-scrolled {
+    background: rgb(247 242 233 / 0.78);
+    backdrop-filter: blur(14px) saturate(1.3);
+    box-shadow: 0 1px 0 rgb(29 42 36 / 0.08);
+  }
+  [data-nav].is-hidden {
+    transform: translateY(-110%);
+  }
+  [data-float-wa].is-visible {
+    transform: translateY(0);
+  }
+</style>

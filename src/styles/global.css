@@ -1,0 +1,191 @@
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/manrope';
+@import '@fontsource/pinyon-script';
+@import 'tailwindcss';
+
+@theme {
+  --color-cream: #f7f2e9;
+  --color-paper: #efe6d6;
+  --color-ink: #1d2a24;
+  --color-ink-soft: #4a5a52;
+  --color-leaf: #2c5a4b;
+  --color-leaf-deep: #173a30;
+  --color-mint: #dfeae1;
+  --color-gold: #b8935a;
+  --color-berry: #a8423a;
+  --color-sky: #9fbedd;
+
+  --font-display: 'Fraunces Variable', 'Georgia', serif;
+  --font-sans: 'Manrope Variable', system-ui, sans-serif;
+  --font-script: 'Pinyon Script', cursive;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-cream);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-leaf);
+    color: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Grão sutil de papel por cima de tudo: dá textura de material, não de tela */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@layer components {
+/* ---------- Tecidos (estampas desenhadas em CSS) ---------- */
+.fabric {
+  position: relative;
+  background-color: #fffaf3;
+}
+/* costura: pesponto tracejado na borda de cada retalho */
+.fabric.stitched::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1.5px dashed rgb(255 255 255 / 0.85);
+  border-radius: inherit;
+  pointer-events: none;
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 0 1px rgb(0 0 0 / 0.25));
+}
+
+.fabric-gingham {
+  background-color: #fff8f1;
+  background-image:
+    linear-gradient(90deg, rgb(168 66 58 / 0.42) 50%, transparent 50%),
+    linear-gradient(rgb(168 66 58 / 0.42) 50%, transparent 50%);
+  background-size: 34px 34px;
+}
+.fabric-stripes {
+  background-image: repeating-linear-gradient(90deg, #a9c6e3 0 12px, #fbfdff 12px 26px);
+}
+.fabric-stars {
+  background-color: #fbf8f2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='%231f2f4a'%3E%3Cpath d='M12 6l1.6 3.3 3.6.5-2.6 2.5.6 3.6L12 14.2 8.8 15.9l.6-3.6-2.6-2.5 3.6-.5z'/%3E%3Cpath d='M44 34l1.1 2.3 2.5.4-1.8 1.7.4 2.5L44 39.7l-2.2 1.2.4-2.5-1.8-1.7 2.5-.4z'/%3E%3Ccircle cx='50' cy='10' r='1.3'/%3E%3Ccircle cx='22' cy='46' r='1.1'/%3E%3Ccircle cx='8' cy='56' r='1.4'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 64px 64px;
+}
+.fabric-tartan {
+  background-color: #f6efe2;
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgb(139 38 38 / 0.55) 22px 34px, transparent 34px 40px, rgb(44 90 75 / 0.55) 40px 44px, transparent 44px 64px),
+    repeating-linear-gradient(0deg, transparent 0 22px, rgb(139 38 38 / 0.5) 22px 34px, transparent 34px 40px, rgb(44 90 75 / 0.5) 40px 44px, transparent 44px 64px);
+}
+.fabric-floral {
+  background-color: #fdf3f1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cg transform='translate(18 18)'%3E%3Cg fill='%23e7a3a6'%3E%3Ccircle cx='0' cy='-6' r='5'/%3E%3Ccircle cx='6' cy='0' r='5'/%3E%3Ccircle cx='0' cy='6' r='5'/%3E%3Ccircle cx='-6' cy='0' r='5'/%3E%3C/g%3E%3Ccircle r='3' fill='%23d9a441'/%3E%3C/g%3E%3Cg transform='translate(54 52)'%3E%3Cg fill='%239fc1a5'%3E%3Ccircle cx='0' cy='-4' r='3.5'/%3E%3Ccircle cx='4' cy='0' r='3.5'/%3E%3Ccircle cx='0' cy='4' r='3.5'/%3E%3Ccircle cx='-4' cy='0' r='3.5'/%3E%3C/g%3E%3Ccircle r='2' fill='%23fff'/%3E%3C/g%3E%3Cpath d='M44 16q4 -6 10 -4' stroke='%239fc1a5' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 72px 72px;
+}
+.fabric-dots {
+  background-color: #f9dfe1;
+  background-image: radial-gradient(#fffaf6 3.2px, transparent 3.6px);
+  background-size: 22px 22px;
+}
+.fabric-mint {
+  background-color: #dfeae1;
+  background-image:
+    linear-gradient(90deg, rgb(44 90 75 / 0.14) 1px, transparent 1px),
+    linear-gradient(rgb(44 90 75 / 0.14) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+/* ---------- Marquee ---------- */
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 1rem 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    background-color 0.4s var(--ease-soft),
+    color 0.4s var(--ease-soft),
+    box-shadow 0.4s var(--ease-soft);
+  will-change: transform;
+}
+.btn-primary {
+  background: var(--color-leaf);
+  color: var(--color-cream);
+  box-shadow: 0 10px 30px -12px rgb(23 58 48 / 0.6);
+}
+.btn-primary:hover {
+  background: var(--color-leaf-deep);
+}
+.btn-ghost {
+  border: 1px solid rgb(29 42 36 / 0.25);
+}
+.btn-ghost:hover {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+
+}
+
+/* Antes do JS rodar, esconda só o que vai animar de entrada (evita "piscar") */
+.js [data-hero-in],
+.js [data-reveal] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .js [data-hero-in],
+  .js [data-reveal] {
+    opacity: 1;
+  }
+}
+
+/* SplitText com máscara de linha: folga para acentos e cedilhas não serem cortados */
+[data-split] > * {
+  padding-block: 0.08em 0.14em;
+  margin-block: -0.08em -0.14em;
+}
