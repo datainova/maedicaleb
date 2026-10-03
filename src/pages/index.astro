@@ -154,11 +154,18 @@ const waIcon =
               <figcaption class="mt-1.5 text-[0.7rem] uppercase tracking-[0.22em] text-ink-soft">Jeniffer · fundadora</figcaption>
             </div>
           </figure>
-          <div data-hero-in class="mt-8 flex items-center gap-6 text-sm text-ink-soft">
-            <span class="flex items-center gap-2"><span class="whitespace-nowrap font-display text-2xl text-ink">4,5 mil</span> seguidores no Instagram</span>
-            <span class="h-8 w-px bg-ink/15"></span>
-            <span class="whitespace-nowrap">Enviamos para<br />todo o Brasil</span>
-          </div>
+          <dl data-hero-in class="mt-8 flex max-w-lg justify-between gap-3 border-t border-ink/10 pt-5 sm:justify-start sm:gap-0 sm:divide-x sm:divide-ink/12">
+            {[
+              { k: 'Desde 2020', v: 'de ateliê e costura' },
+              { k: 'RN ao adulto', v: 'na mesma estampa' },
+              { k: 'Todo o Brasil', v: 'envio desde Curitiba' },
+            ].map((d) => (
+              <div class="sm:px-6 sm:first:pl-0">
+                <dt class="whitespace-nowrap font-display text-[0.95rem] leading-tight text-ink sm:text-xl">{d.k}</dt>
+                <dd class="mt-1 text-[0.7rem] leading-snug text-ink-soft sm:text-xs">{d.v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         <!-- Composição: a "família" de pijamas, do adulto ao bebê -->
