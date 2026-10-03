@@ -1,5 +1,5 @@
-// Lote disponível para pronta-entrega.
-// Para lançar um lote novo, edite só este arquivo: nome, peças, tamanhos e estoque.
+// Coleção disponível para pronta-entrega (o "lote" produzido pelo ateliê).
+// Para lançar uma coleção nova, edite só este arquivo: nome, peças, tamanhos e estoque.
 // TODO: todos os valores abaixo são EXEMPLOS — trocar pelos dados reais da Maedicaleb.
 
 export interface Tamanho {
@@ -19,7 +19,7 @@ export interface Peca {
 }
 
 export const lote = {
-  nome: 'Lote de Natal',
+  nome: 'Coleção de Natal',
   // "restam só X" no tamanho quando o estoque é <= poucas; selo "últimas peças" quando a estampa toda tem <= poucas * 2
   poucas: 3,
   pecas: [

@@ -1,5 +1,5 @@
 ---
-// Vitrine do lote atual + sacolinha. O pedido é finalizado no WhatsApp com a lista pronta.
+// Vitrine da coleção atual + sacolinha. O pedido é finalizado no WhatsApp com a lista pronta.
 import { lote } from '../data/lote';
 import { site, asset } from '../config';
 
@@ -18,7 +18,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
     ))}
   </div>
   <p data-empty hidden class="rounded-[2rem] bg-paper/70 px-8 py-16 text-center text-lg text-ink-soft">
-    Nenhuma peça desta faixa no lote atual. Entre na lista de espera logo abaixo.
+    Nenhuma peça desta faixa na coleção atual. Entre na lista de espera logo abaixo.
   </p>
   <div data-grid class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
     {
@@ -73,7 +73,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
             <p data-stock class="mt-2 h-5 text-xs text-ink-soft"></p>
 
             <button type="button" data-add disabled class="btn btn-primary mt-3 w-full justify-center disabled:cursor-not-allowed disabled:opacity-50">
-              {esgotado ? 'Esgotado neste lote' : 'Escolha o tamanho'}
+              {esgotado ? 'Esgotado nesta coleção' : 'Escolha o tamanho'}
             </button>
           </article>
         );
@@ -229,7 +229,7 @@ const data = lote.pecas.map((p) => ({ id: p.id, nome: p.nome, modelo: p.modelo, 
       if (allPriced) drawer.querySelector('[data-bag-total]')!.textContent = brl(bag.reduce((a, l) => a + l.q * (byId[l.id].preco ?? 0), 0));
 
       const msg = [
-        `Oi! Quero reservar estas peças do ${root.dataset.lote} 💚`,
+        `Oi! Quero reservar estas peças da ${root.dataset.lote} 💚`,
         '',
         ...bag.map((l) => `• ${l.q}x ${byId[l.id].nome} (${byId[l.id].modelo}) · tam. ${l.t}`),
         '',
