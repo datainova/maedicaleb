@@ -10,6 +10,7 @@ import fotoAbraco from '../assets/jeniffer-caleb-abraco.jpg';
 import fotoSorriso from '../assets/jeniffer-caleb-sorriso.jpg';
 import fotoRosto from '../assets/jeniffer-rosto.jpg';
 import fotoMontanha from '../assets/jeniffer-caleb-montanha.jpg';
+import fotoOlhar from '../assets/jeniffer-caleb-olhar.jpg';
 
 const marquee = [
   '100% algodão',
@@ -464,17 +465,28 @@ const waIcon =
             Ver o lote disponível
           </a>
         </div>
-        <div class="order-1 mx-auto w-full max-w-xs sm:max-w-sm lg:order-2 lg:max-w-none">
+        <div class="relative order-1 mx-auto w-full max-w-xs pb-12 pl-10 sm:max-w-sm lg:order-2 lg:max-w-none lg:pl-14">
           <div data-clip-reveal class="overflow-hidden rounded-b-[2rem] rounded-tl-[50%_40%] rounded-tr-[50%_40%] ring-1 ring-cream/15 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.5)]">
             <Picture
-              src={fotoMontanha}
-              alt="Jeniffer sorrindo com o Caleb no colo, com montanhas nevadas ao fundo"
+              src={fotoOlhar}
+              alt="Jeniffer e Caleb se olhando e sorrindo, com montanhas nevadas ao fundo"
               widths={[400, 700, 1000]}
               sizes="(min-width: 1024px) 34vw, 80vw"
               formats={['avif', 'webp']}
               data-img-parallax
               class="aspect-[4/5] w-full scale-[1.08] object-cover object-top"
             />
+          </div>
+          <div data-depth-scroll="-0.3" class="absolute bottom-0 left-0 w-[42%] -rotate-[5deg] rounded-2xl bg-cream p-2 pb-9 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.55)]">
+            <Picture
+              src={fotoMontanha}
+              alt="Jeniffer sorrindo com o Caleb no colo"
+              widths={[300, 600]}
+              sizes="(min-width: 1024px) 15vw, 35vw"
+              formats={['avif', 'webp']}
+              class="aspect-square w-full rounded-xl object-cover object-[50%_45%]"
+            />
+            <span class="absolute inset-x-0 bottom-1.5 text-center font-script text-xl text-ink sm:text-2xl">crescendo juntos</span>
           </div>
         </div>
       </div>
