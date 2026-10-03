@@ -110,9 +110,9 @@ const waIcon =
         <a href="#natal" class="link-underline">Natal</a>
         <a href="#duvidas" class="link-underline">Dúvidas</a>
       </div>
-      <a href={wa()} target="_blank" rel="noopener" class="btn btn-primary !px-4 !py-2.5 text-sm" data-magnetic>
-        <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current" aria-hidden="true"><path d={waIcon}></path></svg>
-        <span>Pedir agora</span>
+      <a href={wa()} target="_blank" rel="noopener" class="btn btn-primary !p-0 grid h-11 w-11 place-items-center text-sm sm:!inline-flex sm:h-auto sm:w-auto sm:!px-4 sm:!py-2.5" aria-label="Pedir pelo WhatsApp" data-magnetic>
+        <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current sm:h-4 sm:w-4" aria-hidden="true"><path d={waIcon}></path></svg>
+        <span class="hidden sm:inline">Pedir agora</span>
       </a>
     </nav>
   </header>
@@ -137,14 +137,17 @@ const waIcon =
           <p data-hero-in class="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
             Algodão macio, acabamento de ateliê e estampas produzidas em lotes pequenos. Do recém-nascido ao adulto, a família inteira combinando.
           </p>
-          <div data-hero-in class="mt-9 flex flex-wrap items-center gap-3">
-            <a href="#lote" class="btn btn-primary" data-magnetic>
+          <div data-hero-in class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-3">
+            <a href="#lote" class="btn btn-primary w-full justify-center sm:w-auto" data-magnetic>
               Ver o lote disponível
               <span aria-hidden="true">→</span>
             </a>
-            <a href={wa()} target="_blank" rel="noopener" class="btn btn-ghost" data-magnetic>
+            <a href={wa()} target="_blank" rel="noopener" class="btn btn-ghost hidden sm:inline-flex" data-magnetic>
               <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true"><path d={waIcon}></path></svg>
               Falar no WhatsApp
+            </a>
+            <a href={wa()} target="_blank" rel="noopener" class="link-underline self-center text-sm font-semibold text-ink-soft sm:hidden">
+              ou fale com a Jeniffer no WhatsApp
             </a>
           </div>
           <figure data-hero-in class="mt-7 flex max-w-md items-center gap-4">
